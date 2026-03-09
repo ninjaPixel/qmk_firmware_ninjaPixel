@@ -4,3 +4,6 @@
 #pragma once
 
 #include "keyboards/mechboards/common/rgb_effects.h"
+
+// default 200ms
+#define TAPPING_TERM 200
