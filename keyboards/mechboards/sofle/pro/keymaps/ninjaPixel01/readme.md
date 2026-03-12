@@ -101,7 +101,7 @@ qmk c2json keymap.c | keymap parse -c 10 -q - >keymap_vis.yaml
 Render the YAML to an SVG diagram:
 
 ```bash
-keymap draw keymap_vis.yaml >keymap_vis.svg
+keymap draw keymap_vis.yaml >keymap.svg
 ```
 
 Open the SVG in your browser to view all layers visually.
