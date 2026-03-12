@@ -95,13 +95,13 @@ Parse your `keymap.c` file into an intermediate YAML file:
 ```bash
 # move into your dir
 cd path/to/keymap_dir
-qmk c2json keymap.c | keymap parse -c 10 -q - >sweep_keymap.yaml
+qmk c2json keymap.c | keymap parse -c 10 -q - >keymap_vis.yaml
 ```
 
 Render the YAML to an SVG diagram:
 
 ```bash
-keymap draw sweep_keymap.yaml >sweep_keymap.ortho.svg
+keymap draw keymap_vis.yaml >keymap_vis.svg
 ```
 
 Open the SVG in your browser to view all layers visually.
