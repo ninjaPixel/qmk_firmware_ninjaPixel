@@ -1,0 +1,147 @@
+layout: {qmk_keyboard: mechboards/sofle/pro, layout_name: LAYOUT}
+layers:
+  L0:
+  - [ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  - ['0', Alt+TAB, ESC, Q, W, F, P, B, J, L]
+  - [U, Y, \, Alt+BSPC, TAB, A, R, S, T, G]
+  - [M, N, E, I, O, BSPC, LSFT, Z, X, C]
+  - [D, V, MUTE, MPLY, K, H, ',', ., /, LSFT]
+  - - LCTL
+    - LALT
+    - LGUI
+    - {t: ENT, h: MOD_RSFT}
+    - HYPR
+    - MEH
+    - {t: SPC, h: L1}
+    - RGUI
+    - RALT
+    - RCTL
+  L1:
+  - - {t: ▽, type: trans}
+    - F1
+    - F2
+    - F3
+    - F4
+    - F5
+    - F6
+    - F7
+    - F8
+    - F9
+  - [F10, F11, '`', '1', '2', '3', '4', '5', '6', '7']
+  - - '8'
+    - '9'
+    - '0'
+    - F12
+    - {t: ▽, type: trans}
+    - '!'
+    - '@'
+    - '#'
+    - $
+    - '%'
+  - - ^
+    - LEFT
+    - DOWN
+    - UP
+    - RIGHT
+    - '|'
+    - {t: ▽, type: trans}
+    - '='
+    - '-'
+    - +
+  - - '{'
+    - '}'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '['
+    - ']'
+    - ;
+    - ':'
+    - \
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  L2:
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - INS
+    - PSCR
+    - APP
+    - ''
+    - ''
+    - PGUP
+    - ''
+  - - UP
+    - ''
+    - ''
+    - BSPC
+    - {t: ▽, type: trans}
+    - LALT
+    - LCTL
+    - LSFT
+    - ''
+    - CAPS
+  - - PGDN
+    - LEFT
+    - DOWN
+    - RGHT
+    - DEL
+    - ''
+    - {t: ▽, type: trans}
+    - Ctl+Z
+    - Ctl+X
+    - Ctl+C
+  - - Ctl+V
+    - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - L3
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  L3:
+  - ['', '', '', '', '', '', '', '', '', '']
+  - ['', '', QK BOOT, '', '', '', '', '', '', '']
+  - ['', '', '', '', RM TOGG, RM HUEU, RM SATU, RM VALU, '', '']
+  - ['', VOLD, MUTE, VOLU, '', '', RM NEXT, RM HUED, RM SATD, RM VALD]
+  - ['', '', '', '', '', MPRV, MPLY, MNXT, '', '']
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
