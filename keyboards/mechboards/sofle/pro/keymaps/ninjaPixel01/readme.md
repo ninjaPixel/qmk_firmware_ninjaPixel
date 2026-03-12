@@ -27,6 +27,13 @@ qmk flash -kb mechboards/sofle/pro -km ninjaPixel01
 
 # Generating visual keymap SVGs with keymap-drawer
 
+tl;dr:
+
+```bash
+# cd into your keymap directory
+qmk c2json keymap.c | keymap parse -c 10 -q - >keymap_vis.yaml && keymap draw keymap_vis.yaml >keymap.svg
+```
+
 (MacOS instructions)
 
 ## Prerequisites

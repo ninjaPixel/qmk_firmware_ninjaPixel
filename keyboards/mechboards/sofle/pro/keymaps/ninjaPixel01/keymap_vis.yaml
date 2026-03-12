@@ -1,7 +1,7 @@
 layout: {qmk_keyboard: mechboards/sofle/pro, layout_name: LAYOUT}
 layers:
   L0:
-  - [ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  - [TD(TD ESC CAPS), '1', '2', '3', '4', '5', '6', '7', '8', '9']
   - ['0', Alt+TAB, ESC, Q, W, F, P, B, J, L]
   - [U, Y, \, Alt+BSPC, TAB, A, R, S, T, G]
   - [M, N, E, I, O, BSPC, LSFT, Z, X, C]
