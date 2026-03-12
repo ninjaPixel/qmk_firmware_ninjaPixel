@@ -1,5 +1,22 @@
 # ninjaPixel01 Keymap
 
+
+tl;dr:
+
+```bash
+# cd into your keymap directory
+
+# keymap svg
+qmk c2json keymap.c | keymap parse -c 10 -q - >keymap_vis.yaml && keymap draw keymap_vis.yaml >keymap.svg
+
+# compile
+qmk compile -kb mechboards/sofle/pro -km ninjaPixel01
+
+# flash half a board
+qmk flash -kb mechboards/sofle/pro -km ninjaPixel01
+```
+
+
 ## Build Steps
 
 Build firmware using ninjaPixel01 keymap:

@@ -2,7 +2,7 @@ layout: {qmk_keyboard: mechboards/sofle/pro, layout_name: LAYOUT}
 layers:
   L0:
   - [TD(TD ESC CAPS), '1', '2', '3', '4', '5', '6', '7', '8', '9']
-  - ['0', Alt+TAB, ESC, Q, W, F, P, B, J, L]
+  - ['0', Alt+TAB, TD(TD NOODLE), Q, W, F, P, B, J, L]
   - [U, Y, \, Alt+BSPC, TAB, A, R, S, T, G]
   - [M, N, E, I, O, BSPC, LSFT, Z, X, C]
   - [D, V, MUTE, MPLY, K, H, ',', ., /, LSFT]
@@ -27,17 +27,8 @@ layers:
     - F7
     - F8
     - F9
-  - [F10, F11, '`', '1', '2', '3', '4', '5', '6', '7']
-  - - '8'
-    - '9'
-    - '0'
-    - F12
-    - {t: ▽, type: trans}
-    - '!'
-    - '@'
-    - '#'
-    - $
-    - '%'
+  - [F10, F11, '`', X, '2', '3', '4', '`', '6', '7']
+  - ['8', '9', '0', F12, CW TOGG, '!', '@', '#', $, '%']
   - - ^
     - LEFT
     - DOWN
