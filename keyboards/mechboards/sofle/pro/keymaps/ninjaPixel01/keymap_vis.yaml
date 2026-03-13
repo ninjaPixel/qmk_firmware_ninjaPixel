@@ -27,9 +27,27 @@ layers:
     - F7
     - F8
     - F9
-  - [F10, F11, '`', X, '2', '3', '4', '`', '6', '7']
-  - ['8', '9', '0', F12, CW TOGG, '!', '@', '#', $, '%']
-  - - ^
+  - - F10
+    - F11
+    - '`'
+    - X
+    - '['
+    - (
+    - '{'
+    - '`'
+    - {t: ▽, type: trans}
+    - '}'
+  - - )
+    - ']'
+    - ;
+    - F12
+    - CW TOGG
+    - Alt+DEL
+    - DEL
+    - ''''
+    - ;
+    - {t: ▽, type: trans}
+  - - '-'
     - LEFT
     - DOWN
     - UP
@@ -39,14 +57,14 @@ layers:
     - '='
     - '-'
     - +
-  - - '{'
+  - - '='
     - '}'
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - '['
-    - ']'
-    - ;
-    - ':'
+    - Gui+LEFT
+    - PGDN
+    - PGUP
+    - Gui+LEFT
     - \
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
