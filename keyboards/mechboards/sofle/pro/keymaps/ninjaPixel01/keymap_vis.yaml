@@ -29,8 +29,8 @@ layers:
     - F9
   - - F10
     - F11
-    - '`'
-    - X
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - '['
     - (
     - '{'
@@ -52,10 +52,10 @@ layers:
     - DOWN
     - UP
     - RIGHT
-    - '|'
     - {t: ▽, type: trans}
-    - '='
-    - '-'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - +
   - - '='
     - '}'
@@ -65,7 +65,7 @@ layers:
     - Gui+LEFT
     - PGDN
     - PGUP
-    - Gui+LEFT
+    - Gui+RIGHT
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -139,11 +139,56 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   L3:
-  - ['', '', '', '', '', '', '', '', '', '']
-  - ['', '', QK BOOT, '', '', '', '', '', '', '']
-  - ['', '', '', '', RM TOGG, RM HUEU, RM SATU, RM VALU, '', '']
-  - ['', VOLD, MUTE, VOLU, '', '', RM NEXT, RM HUED, RM SATD, RM VALD]
-  - ['', '', '', '', '', MPRV, MPLY, MNXT, '', '']
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
