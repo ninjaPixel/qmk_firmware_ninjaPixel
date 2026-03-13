@@ -17,7 +17,7 @@ layers:
     - RALT
     - RCTL
   L1:
-  - - {t: ▽, type: trans}
+  - - {t: L2, h: toggle}
     - F1
     - F2
     - F3
@@ -61,11 +61,11 @@ layers:
     - '}'
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - Gui+LEFT
     - PGDN
     - PGUP
     - Gui+LEFT
-    - \
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -78,14 +78,14 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   L2:
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+  - - {t: L0, h: toggle}
+    - RGB MOD
+    - RGB RMOD
+    - RGB TOG
+    - RGB VAI
+    - RGB VAD
+    - RGB SPI
+    - RGB SPD
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
