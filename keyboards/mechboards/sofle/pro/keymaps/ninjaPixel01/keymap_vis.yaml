@@ -79,13 +79,13 @@ layers:
     - {t: ▽, type: trans}
   L2:
   - - {t: L0, h: toggle}
-    - RGB MOD
-    - RGB RMOD
-    - RGB TOG
-    - RGB VAI
-    - RGB VAD
-    - RGB SPI
-    - RGB SPD
+    - RM NEXT
+    - RM PREV
+    - RM TOGG
+    - RM VALU
+    - RM VALD
+    - RM SPDU
+    - RM SPDD
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}

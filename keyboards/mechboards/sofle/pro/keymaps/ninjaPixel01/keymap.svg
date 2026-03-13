@@ -640,43 +640,43 @@ path.combo {
 <g transform="translate(84, 49)" class="key keypos-1">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">MOD</tspan>
+<tspan x="0" dy="-0.6em">RM</tspan><tspan x="0" dy="1.2em">NEXT</tspan>
 </text>
 </g>
 <g transform="translate(140, 35)" class="key keypos-2">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">RMOD</tspan>
+<tspan x="0" dy="-0.6em">RM</tspan><tspan x="0" dy="1.2em">PREV</tspan>
 </text>
 </g>
 <g transform="translate(196, 28)" class="key keypos-3">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">TOG</tspan>
+<tspan x="0" dy="-0.6em">RM</tspan><tspan x="0" dy="1.2em">TOGG</tspan>
 </text>
 </g>
 <g transform="translate(252, 35)" class="key keypos-4">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">VAI</tspan>
+<tspan x="0" dy="-0.6em">RM</tspan><tspan x="0" dy="1.2em">VALU</tspan>
 </text>
 </g>
 <g transform="translate(308, 42)" class="key keypos-5">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">VAD</tspan>
+<tspan x="0" dy="-0.6em">RM</tspan><tspan x="0" dy="1.2em">VALD</tspan>
 </text>
 </g>
 <g transform="translate(616, 42)" class="key keypos-6">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">SPI</tspan>
+<tspan x="0" dy="-0.6em">RM</tspan><tspan x="0" dy="1.2em">SPDU</tspan>
 </text>
 </g>
 <g transform="translate(672, 35)" class="key keypos-7">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">SPD</tspan>
+<tspan x="0" dy="-0.6em">RM</tspan><tspan x="0" dy="1.2em">SPDD</tspan>
 </text>
 </g>
 <g transform="translate(728, 28)" class="key trans keypos-8">
