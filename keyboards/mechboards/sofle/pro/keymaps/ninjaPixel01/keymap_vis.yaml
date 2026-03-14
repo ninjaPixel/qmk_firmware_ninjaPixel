@@ -4,7 +4,7 @@ layers:
   - [ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9']
   - ['0', Alt+TAB, TD(TD NOODLE), Q, W, F, P, B, J, L]
   - [U, Y, \, Alt+BSPC, TAB, A, R, S, T, G]
-  - [M, N, E, I, O, BSPC, LSFT, Z, X, C]
+  - [M, N, E, I, O, BSPC, EE CLR, Z, X, C]
   - [D, V, MUTE, MPLY, K, H, ',', ., /, LSFT]
   - - LCTL
     - LALT
@@ -71,8 +71,8 @@ layers:
     - {t: ▽, type: trans}
     - LCTL
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {h: MOD_LCTL|MOD_LSFT|MOD_LALT}
+    - Ctl+LGUI
     - {t: SPC, h: L3}
     - RCTL
     - {t: ▽, type: trans}
@@ -204,14 +204,14 @@ layers:
     - RM NEXT
     - RM PREV
     - RM TOGG
-    - RM VALU
     - RM VALD
-    - RM SPDU
+    - RM VALU
     - RM SPDD
+    - RM SPDU
     - ''
     - ''
   - - ''
-    - PDF(0)
+    - {t: L1, h: toggle}
     - {t: ▽, type: trans}
     - ''
     - ''
@@ -223,7 +223,7 @@ layers:
   - - ''
     - ''
     - ''
-    - PDF(1)
+    - ''
     - {t: ▽, type: trans}
     - ''
     - ''
