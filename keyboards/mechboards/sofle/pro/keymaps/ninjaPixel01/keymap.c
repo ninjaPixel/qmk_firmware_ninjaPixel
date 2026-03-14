@@ -15,6 +15,15 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_NOODLE] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_B),
 };
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // When on Windows (layer 1) with Windows symbols (layer 3) active,
+    // also enable Mac symbols (layer 2) so transparent keys fall through to it.
+    if (IS_LAYER_ON_STATE(state, 1) && IS_LAYER_ON_STATE(state, 3)) {
+        state |= (layer_state_t)1 << 2;
+    }
+    return state;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Mac Base (Layer 0)
     [0] = LAYOUT(
