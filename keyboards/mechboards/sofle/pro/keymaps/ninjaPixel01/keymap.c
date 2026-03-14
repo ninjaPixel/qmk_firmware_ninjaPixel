@@ -15,11 +15,43 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_NOODLE] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_B),
 };
 
+// Layer structure:
+//   Layer 0 — Mac base
+//   Layer 1 — Windows base (toggled on/off to switch OS mode)
+//   Layer 2 — Mac symbols, activated by LT(2, KC_SPC) on Mac
+//   Layer 3 — Windows symbol overrides (sparse — most keys are KC_TRNS)
+//
+// Problem this solves:
+//   On Windows, we use LT(3, KC_SPC) to hold-activate layer 3 for symbols.
+//   Layer 3 only defines the few keys that differ between Mac and Windows;
+//   everything else is KC_TRNS (transparent). Normally those transparent keys
+//   would fall through to layer 1 (Windows base), not to layer 2 (Mac symbols)
+//   where the actual symbol definitions live.
+//
+//   To fix this, whenever layers 1 AND 3 are both active we also force-enable
+//   layer 2, so the lookup order becomes 3 → 2 → 1 → 0. Transparent keys on
+//   layer 3 now resolve against the Mac symbol layer, which is what we want.
+//
+// Why the else-if is needed:
+//   QMK calls this callback whenever the layer state changes. When the user
+//   releases LT(3, KC_SPC), QMK clears layer 3 from the state — but layer 2,
+//   which we manually set with `state |=`, is NOT automatically cleared.
+//   Without the else-if branch, layer 2 would remain stuck on after release.
+//   The else-if detects "still on Windows, but layer 3 was just released" and
+//   explicitly clears layer 2.
+//
+// Mac side is unaffected:
+//   Layer 1 is only active in Windows mode, so neither branch fires on Mac.
+//   LT(2, KC_SPC) on Mac activates layer 2 directly via QMK as normal.
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // When on Windows (layer 1) with Windows symbols (layer 3) active,
-    // also enable Mac symbols (layer 2) so transparent keys fall through to it.
     if (IS_LAYER_ON_STATE(state, 1) && IS_LAYER_ON_STATE(state, 3)) {
+        // Windows + symbols held: force layer 2 on so transparent keys on
+        // layer 3 fall through to the Mac symbol definitions on layer 2.
         state |= (layer_state_t)1 << 2;
+    } else if (IS_LAYER_ON_STATE(state, 1)) {
+        // Windows but symbols released: clear layer 2 so we return to the
+        // normal Windows base (layer 1) without a stale symbol layer.
+        state &= ~((layer_state_t)1 << 2);
     }
     return state;
 }
