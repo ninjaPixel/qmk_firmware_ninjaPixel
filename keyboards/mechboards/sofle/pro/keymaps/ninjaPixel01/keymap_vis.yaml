@@ -4,7 +4,7 @@ layers:
   - [ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9']
   - ['0', Alt+TAB, TD(TD NOODLE), Q, W, F, P, B, J, L]
   - [U, Y, \, Alt+BSPC, TAB, A, R, S, T, G]
-  - [M, N, E, I, O, BSPC, EE CLR, Z, X, C]
+  - [M, N, E, I, O, BSPC, '', Z, X, C]
   - [D, V, MUTE, MPLY, K, H, ',', ., /, LSFT]
   - - LCTL
     - LALT
@@ -28,7 +28,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Ctl+Gui+W
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -40,7 +40,7 @@ layers:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Ctl+BSPC
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -98,16 +98,7 @@ layers:
     - '`'
     - {t: ▽, type: trans}
     - '}'
-  - - )
-    - ']'
-    - ;
-    - F12
-    - CW TOGG
-    - Alt+DEL
-    - DEL
-    - ''''
-    - ;
-    - {t: ▽, type: trans}
+  - [), ']', ;, F12, CW TOGG, Alt+DEL, DEL, '''', ;, LALT]
   - - '-'
     - LEFT
     - DOWN
@@ -131,8 +122,8 @@ layers:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Sft+ENT
+    - Sft+ENT
     - {t: ▽, type: trans}
     - {type: held}
     - {t: ▽, type: trans}
@@ -168,7 +159,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - LCTL
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -184,16 +175,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - HOME
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - END
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Ctl+J
     - {t: ▽, type: trans}
     - {type: held}
     - {t: ▽, type: trans}

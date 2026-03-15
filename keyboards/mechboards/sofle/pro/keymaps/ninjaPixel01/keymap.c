@@ -59,15 +59,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Mac Base (Layer 0)
     [0] = LAYOUT(
-    KC_ESC,         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,          KC_7,    KC_8,     KC_9,   KC_0,    LALT(KC_TAB),
-    TD(TD_NOODLE),  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                        KC_J,          KC_L,    KC_U,     KC_Y,   KC_BSLS, LALT(KC_BSPC),
-    KC_TAB,         KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                        KC_M,          KC_N,    KC_E,     KC_I,   KC_O,    KC_BSPC,
-    EE_CLR,         KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                 KC_MUTE,      KC_MPLY, KC_K,          KC_H,    KC_COMMA, KC_DOT, KC_SLSH, KC_LSFT,
-                             KC_LCTL, KC_LALT, KC_LGUI, MT(MOD_RSFT, KC_ENT), KC_HYPR,      KC_MEH,  LT(2, KC_SPC), KC_RGUI, KC_RALT,  KC_RCTL
+    KC_ESC,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,          KC_7,    KC_8,     KC_9,   KC_0,    LALT(KC_TAB),
+    TD(TD_NOODLE), KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                        KC_J,          KC_L,    KC_U,     KC_Y,   KC_BSLS, LALT(KC_BSPC),
+    KC_TAB,        KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                        KC_M,          KC_N,    KC_E,     KC_I,   KC_O,    KC_BSPC,
+    XXXXXXX,       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                 KC_MUTE,      KC_MPLY, KC_K,          KC_H,    KC_COMMA, KC_DOT, KC_SLSH, KC_LSFT,
+                            KC_LCTL, KC_LALT, KC_LGUI, MT(MOD_RSFT, KC_ENT), KC_HYPR,      KC_MEH,  LT(2, KC_SPC), KC_RGUI, KC_RALT,  KC_RCTL
   ),
     // Windows Base (Layer 0)
     [1] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                                                                       _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                                                                       _______, _______, _______, _______, _______, LCTL(LGUI(KC_W)),
     _______, _______, _______, _______, _______, _______,                                                                       _______, _______, _______, _______, _______, LCTL(KC_BSPC),
     _______, _______, _______, _______, _______, _______,                                                                       _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______,                                   _______,    _______,       _______, _______, _______, _______, _______,
@@ -75,19 +75,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Mac Layer 1
   [2] = LAYOUT(
-    TG(4),           KC_F1,          KC_F2,   KC_F3,    KC_F4,        KC_F5,                              KC_F6,    KC_F7,         KC_F8,   KC_F9,   KC_F10,          KC_F11,
-    KC_SYSTEM_SLEEP, _______,        KC_LBRC, KC_LPRN,  KC_LCBR,      KC_GRV,                             _______,  KC_RCBR,       KC_RPRN, KC_RBRC, KC_SEMICOLON,    KC_F12,
-    CW_TOGG,         LALT(KC_DEL),   KC_DEL,  KC_QUOTE, KC_SEMICOLON, _______,                            KC_MINUS, KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,        _______,
-    KC_WWW_BACK,     KC_WWW_FORWARD, _______, KC_PLUS,  KC_EQL,       KC_RCBR, _______,      _______,     _______,  LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),  _______,
-                                     _______, _______, _______,      _______,  _______,      _______,     _______,  _______,       _______, _______
+    TG(4),           KC_F1,          KC_F2,   KC_F3,    KC_F4,        KC_F5,                                        KC_F6,    KC_F7,         KC_F8,   KC_F9,   KC_F10,          KC_F11,
+    KC_SYSTEM_SLEEP, _______,        KC_LBRC, KC_LPRN,  KC_LCBR,      KC_GRV,                                       _______,  KC_RCBR,       KC_RPRN, KC_RBRC, KC_SEMICOLON,    KC_F12,
+    CW_TOGG,         LALT(KC_DEL),   KC_DEL,  KC_QUOTE, KC_SEMICOLON, KC_LALT,                                      KC_MINUS, KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,        _______,
+    KC_WWW_BACK,     KC_WWW_FORWARD, _______, KC_PLUS,  KC_EQL,       KC_RCBR,      _______,           _______,     _______,  LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),  _______,
+                                     _______, _______,  _______,      LSFT(KC_ENT), LSFT(KC_ENT),      _______,     _______,  _______,       _______, _______
   ),
     // Windows Layer 1
     [3] = LAYOUT(
-    _______,    _______,      _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-    LGUI(KC_L), _______,      _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-    _______,    LCTL(KC_DEL), _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-    _______,    _______,      _______, _______, _______, _______, _______,        _______, _______, KC_HOME, _______, _______, KC_END, _______,
-                              _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
+    _______,    _______,      _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
+    LGUI(KC_L), _______,      _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
+    _______,    LCTL(KC_DEL), _______, _______, _______, KC_LCTL,                           _______, _______, _______, _______, _______, _______,
+    _______,    _______,      _______, _______, _______, _______, _______,         _______, _______, KC_HOME, _______, _______, KC_END, _______,
+                              _______, _______, _______, _______, LCTL(KC_J),      _______, _______, _______, _______, _______
   ),
     // Keyboard Layer
   [4] = LAYOUT(
