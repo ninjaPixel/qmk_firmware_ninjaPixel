@@ -75,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Mac Layer 1
   [2] = LAYOUT(
-    TG(4),           KC_F1,          KC_F2,   KC_F3,    KC_F4,        KC_F5,                                        KC_F6,    KC_F7,         KC_F8,   KC_F9,   KC_F10,          KC_F11,
-    KC_SYSTEM_SLEEP, _______,        KC_LBRC, KC_LPRN,  KC_LCBR,      KC_GRV,                                       _______,  KC_RCBR,       KC_RPRN, KC_RBRC, KC_SEMICOLON,    KC_F12,
-    CW_TOGG,         LALT(KC_DEL),   KC_DEL,  KC_QUOTE, KC_SEMICOLON, KC_LALT,                                      KC_MINUS, KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,        _______,
-    KC_WWW_BACK,     KC_WWW_FORWARD, _______, KC_PLUS,  KC_EQL,       KC_RCBR,      _______,           _______,     _______,  LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),  _______,
-                                     _______, _______,  _______,      LSFT(KC_ENT), LSFT(KC_ENT),      _______,     _______,  _______,       _______, _______
+    TG(4),           KC_F1,          KC_F2,   KC_F3,    KC_F4,        KC_F5,                                   KC_F6,    KC_F7,         KC_F8,   KC_F9,   KC_F10,          KC_F11,
+    KC_SYSTEM_SLEEP, _______,        KC_LBRC, KC_LPRN,  KC_LCBR,      KC_GRV,                                  _______,  KC_RCBR,       KC_RPRN, KC_RBRC, KC_SEMICOLON,    KC_F12,
+    CW_TOGG,         LALT(KC_DEL),   KC_DEL,  KC_QUOTE, KC_SEMICOLON, KC_LALT,                                 KC_MINUS, KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,        _______,
+    KC_WWW_BACK,     KC_WWW_FORWARD, _______, KC_PLUS,  KC_EQL,       KC_RCBR, _______,           _______,     _______,  LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),  _______,
+                                     _______, _______,  LSFT(KC_ENT), _______, LSFT(KC_ENT),      _______,     _______,  _______,       _______, _______
   ),
     // Windows Layer 1
     [3] = LAYOUT(

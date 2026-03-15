@@ -121,8 +121,8 @@ layers:
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
     - Sft+ENT
+    - {t: ▽, type: trans}
     - Sft+ENT
     - {t: ▽, type: trans}
     - {type: held}
