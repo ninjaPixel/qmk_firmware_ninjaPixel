@@ -83,19 +83,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // Windows Layer 1
     [3] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-    LGUI(KC_L), _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-    _______, LCTL(KC_DEL), _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______,
-                      _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
+    _______,    _______,      _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
+    LGUI(KC_L), _______,      _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
+    _______,    LCTL(KC_DEL), _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
+    _______,    _______,      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
+                              _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______
   ),
     // Keyboard Layer
   [4] = LAYOUT(
-    TO(0),   RM_NEXT, RM_PREV,  RM_TOGG, RM_VALD, RM_VALU,                          RM_SPDD, RM_SPDU, XXXXXXX, XXXXXXX, XXXXXXX ,TO(1),
-    _______, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,                          XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,
-    _______, C(KC_Z), C(KC_X), C(KC_C), XXXXXXX, C(KC_V), _______,        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                      _______, _______, _______, _______,   _______,        _______, _______, _______, _______, _______
+    TO(0),   RM_NEXT, RM_PREV, RM_TOGG, RM_VALD, RM_VALU,                        RM_SPDD, RM_SPDU, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, C(KC_Z), C(KC_X), C(KC_C), XXXXXXX, C(KC_V), _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______
   ),
     // transparent template layer
     [5] = LAYOUT(
