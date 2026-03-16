@@ -56,6 +56,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+// Disable underglow LEDs (the 5 bottom-facing LEDs per half) while leaving
+// per-key LEDs unaffected. Called every frame by QMK's RGB Matrix system.
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i < led_max; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+            rgb_matrix_set_color(i, 0, 0, 0); // force off
+        }
+    }
+    return false; // allow other indicator callbacks to run
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Mac Base (Layer 0)
     [0] = LAYOUT(
