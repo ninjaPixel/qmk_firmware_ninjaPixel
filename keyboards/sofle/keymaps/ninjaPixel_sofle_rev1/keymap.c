@@ -64,6 +64,53 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+// OLED display override — replaces the board-level oled_task_kb() layer names
+// with names that match this keymap's actual layer structure.
+// The master half shows the active layer name and caps lock status.
+// The secondary half falls through to the board-level QMK logo render.
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
+        // Show the active layer name, matching the Sofle Pro's layer structure.
+        oled_write_P(PSTR("\n\n"), false);
+        switch (get_highest_layer(layer_state)) {
+            case 0:
+                oled_write_ln_P(PSTR("Mac 0"), false);
+                break;
+            case 1:
+                oled_write_ln_P(PSTR("Win 0"), false);
+                break;
+            case 2:
+                oled_write_ln_P(PSTR("Mac 1"), false);
+                break;
+            case 3:
+                oled_write_ln_P(PSTR("Win 1"), false);
+                break;
+            case 4:
+                oled_write_ln_P(PSTR("KBD"), false);
+                break;
+            case 5:
+                oled_write_ln_P(PSTR("Tmpl"), false);
+                break;
+            default:
+                oled_write_ln_P(PSTR("?????"), false);
+                break;
+        }
+        oled_write_P(PSTR("\n\n"), false);
+
+        // Show caps lock indicator
+        led_t led_usb_state = host_keyboard_led_state();
+        oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    }
+    // On the master half we've already written our custom display above,
+    // so return false to stop the board-level oled_task_kb() from
+    // overwriting it with the default layer names.
+    // On the secondary half we haven't written anything, so return true
+    // to let the board-level code render the QMK logo as usual.
+    return !is_keyboard_master();
+}
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mac Base (Layer 0) — Colemak layout
     // Left encoder: KC_MUTE (volume mute)
