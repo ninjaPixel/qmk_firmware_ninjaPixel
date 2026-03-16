@@ -170,20 +170,20 @@ and QMK's `c2json` tool.
 
 ### Command
 
-From the repository root:
+From the repository root, run the following to create a `.svg` keymap in the root dir:
 
 ```bash
 # For the Sofle Pro:
 qmk c2json -kb mechboards/sofle/pro -km ninjaPixel01 --no-cpp \
     users/ninjaPixel/ninjaPixel_keymap.h \
   | keymap parse -c 10 -q - > keymap_vis.yaml \
-  && keymap draw keymap_vis.yaml > keymap.svg
+  && keymap draw keymap_vis.yaml > keymap_sofle.svg
 
-# For the Sofle Rev1:
+# For the Sofle Rev1 (this results in the same thing!):
 qmk c2json -kb sofle/rev1 -km ninjaPixel_sofle_rev1 --no-cpp \
     users/ninjaPixel/ninjaPixel_keymap.h \
   | keymap parse -c 10 -q - > keymap_vis.yaml \
-  && keymap draw keymap_vis.yaml > keymap.svg
+  && keymap draw keymap_vis.yaml > keymap_sofle.svg
 ```
 
 ### Why `--no-cpp` is needed
