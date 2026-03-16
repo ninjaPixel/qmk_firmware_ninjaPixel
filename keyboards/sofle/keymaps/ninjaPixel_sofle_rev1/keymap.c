@@ -186,8 +186,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     // Layer 0 (Mac base): left = volume, right = switch tabs (Cmd+Shift+[/])
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(LSG(KC_LBRC), LSG(KC_RBRC))},
-    // Layer 1 (Windows base): left = transparent, right = Ctrl+Shift+Tab / Ctrl+Tab
-    [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(C(S(KC_TAB)), C(KC_TAB))},
+    // Layer 1 (Windows base): left = transparent, right = Ctrl+Tab (CW) / Ctrl+Shift+Tab (CCW)
+    [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(C(KC_TAB), C(S(KC_TAB)))},
     // Layer 2 (Mac symbols): left = prev/next track, right = transparent
     [2] = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
     // Layer 3 (Windows symbols): all transparent (falls through to layer 2/1/0)

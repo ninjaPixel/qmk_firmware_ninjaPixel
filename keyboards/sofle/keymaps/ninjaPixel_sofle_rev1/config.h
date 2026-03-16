@@ -3,6 +3,8 @@
 
 #pragma once
 
-// No additional configuration needed for this keymap.
-// The tri-layer config has been removed since this keymap uses its own
-// layer switching logic (layer_state_set_user) instead of QMK's TRI_LAYER feature.
+// Override encoder resolution from the board default of 2 to 4.
+// With resolution 2 the encoders fire twice per detent (click),
+// causing actions like tab-switching to skip two tabs at a time.
+#undef ENCODER_RESOLUTION
+#define ENCODER_RESOLUTION 4
