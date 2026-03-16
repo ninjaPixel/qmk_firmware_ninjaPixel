@@ -15,6 +15,41 @@
 
 #include "ninjaPixel.h"
 
+// ──────────────────────────────────────────────────────────────
+// Board-specific key aliases for layer 4 (keyboard settings).
+// On the Sofle Pro (RGB_MATRIX_ENABLE), the top row has RGB controls.
+// On boards without RGB (e.g. Rev1), those positions are dead keys.
+// ──────────────────────────────────────────────────────────────
+#ifdef RGB_MATRIX_ENABLE
+// Layer 4 top row: RGB matrix controls (Sofle Pro)
+#define NP_L4_1  RM_NEXT
+#define NP_L4_2  RM_PREV
+#define NP_L4_3  RM_TOGG
+#define NP_L4_4  RM_VALD
+#define NP_L4_5  RM_VALU
+#define NP_L4_6  RM_SPDD
+#define NP_L4_7  RM_SPDU
+// Layer 4 encoders: RGB hue and saturation (Sofle Pro)
+#define NP_ENC4_L_CCW  RM_HUED
+#define NP_ENC4_L_CW   RM_HUEU
+#define NP_ENC4_R_CCW  RM_SATD
+#define NP_ENC4_R_CW   RM_SATU
+#else
+// Layer 4 top row: dead keys (no RGB on this board)
+#define NP_L4_1  XXXXXXX
+#define NP_L4_2  XXXXXXX
+#define NP_L4_3  XXXXXXX
+#define NP_L4_4  XXXXXXX
+#define NP_L4_5  XXXXXXX
+#define NP_L4_6  XXXXXXX
+#define NP_L4_7  XXXXXXX
+// Layer 4 encoders: transparent (no RGB on this board)
+#define NP_ENC4_L_CCW  KC_TRNS
+#define NP_ENC4_L_CW   KC_TRNS
+#define NP_ENC4_R_CCW  KC_TRNS
+#define NP_ENC4_R_CW   KC_TRNS
+#endif
+
 // clang-format off
 
 // ──────────────────────────────────────────────────────────────
@@ -78,11 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // On the Sofle Pro, the top row includes RGB controls.
     // On boards without RGB (e.g. Rev1), those keys are XXXXXXX.
     [4] = LAYOUT(
-#ifdef RGB_MATRIX_ENABLE
-    TO(0),   RM_NEXT, RM_PREV, RM_TOGG, RM_VALD, RM_VALU,                        RM_SPDD, RM_SPDU, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
-#else
-    TO(0),   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
-#endif
+    TO(0),   NP_L4_1, NP_L4_2, NP_L4_3, NP_L4_4, NP_L4_5,                        NP_L4_6, NP_L4_7, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, C(KC_Z), C(KC_X), C(KC_C), XXXXXXX, C(KC_V), _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -116,11 +147,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     // Layer 3 (Windows symbols): all transparent (falls through to layer 2/1/0)
     [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
     // Layer 4 (Keyboard settings): RGB hue/saturation on Pro, transparent on others
-#ifdef RGB_MATRIX_ENABLE
-    [4] = { ENCODER_CCW_CW(RM_HUED, RM_HUEU), ENCODER_CCW_CW(RM_SATD, RM_SATU)},
-#else
-    [4] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
-#endif
+    [4] = { ENCODER_CCW_CW(NP_ENC4_L_CCW, NP_ENC4_L_CW), ENCODER_CCW_CW(NP_ENC4_R_CCW, NP_ENC4_R_CW)},
     // Layer 5 (template): all transparent
     [5] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS)}
 };
