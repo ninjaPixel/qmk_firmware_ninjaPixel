@@ -1,23 +1,4 @@
-The keymap for this Sofle Rev1 board have been copied from my Sofle pro board:
-`keyboards/mechboards/sofle/pro/keymaps/ninjaPixel01/keymap.c`,
-with a few adjustments to account for the Rev1 not having RGB lighting.
-
-# Steps to compile and flash
-
-
-```shell
-qmk compile -kb sofle/rev1 -km ninjaPixel_sofle_rev1
-```
-
-# flash half a board
-```shell
-qmk flash -kb sofle/rev1 -km ninjaPixel_sofle_rev1
-```
-When the above runs, it will then be searching for the keyboard.
-Single tap the reset button (just above the TRRS jack), and it will be found and flashed.
-Disconnect the USB port from the keyboard and then plug it into the other half (TRRS cable can remain attached throughout), and then run the flash command again.
-Once both halfs are flashed, make sure you plug the USB cable back into the left hand keyboard.
-
+Refer to `users/ninjaPixel/readme.md` for more information and flashing instructions.
 
 # Genesis
 This keymap directory was created by running the following, which simply clones the default (qwerty) keymap:
