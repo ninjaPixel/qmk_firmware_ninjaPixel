@@ -203,17 +203,44 @@ replace the macro names with human-readable labels.
 
 ## Build and flash commands
 
-These are unchanged from normal QMK usage:
+Build and flash commands are unchanged from normal QMK usage. Both boards are split
+keyboards, so each half must be flashed individually.
+
+**Important:** Never connect or disconnect the TRRS cable while either half is powered
+(USB plugged in). Always unplug USB first.
+
+### Sofle Pro (RP2040 USB-C controllers)
 
 ```bash
-# Sofle Pro
 qmk compile -kb mechboards/sofle/pro -km ninjaPixel01
 qmk flash   -kb mechboards/sofle/pro -km ninjaPixel01
+```
 
-# Sofle Rev1
+**Flashing procedure:**
+
+1. Run the `qmk flash` command above. It will print `Waiting for UF2 drive...` 
+1. Double-press the reset button (below the TRRS socket) to enter bootloader mode.
+   1. The board will appear as a USB drive in Finder — this is expected.
+1. QMK detects the drive, copies the firmware, and disconnects the board automatically.
+1. Unplug USB, then repeat steps 3-6 for the right half.
+1. Once both halves are flashed, reconnect the left half.
+
+### Sofle Rev1 (Elite-C v4, ATmega32u4, Atmel DFU bootloader)
+
+```bash
 qmk compile -kb sofle/rev1 -km ninjaPixel_sofle_rev1
 qmk flash   -kb sofle/rev1 -km ninjaPixel_sofle_rev1
 ```
+
+**Flashing procedure:**
+
+1. Run the `qmk flash` command above. It will wait for the keyboard to appear.
+2. Single-tap the reset button (just above the TRRS jack) on the half connected via
+   USB. The bootloader will be detected and the firmware flashed.
+3. Disconnect USB from the flashed half and plug it into the other half (the TRRS
+   cable can remain attached throughout).
+4. Run the `qmk flash` command again and single-tap the reset button on this half.
+5. Once both halves are flashed, plug the USB cable back into the **left** half.
 
 ## Layer structure
 
