@@ -22,13 +22,13 @@
 // ──────────────────────────────────────────────────────────────
 #ifdef RGB_MATRIX_ENABLE
 // Layer 4 top row: RGB matrix controls (Sofle Pro)
-#define NP_L4_1  RM_NEXT
-#define NP_L4_2  RM_PREV
-#define NP_L4_3  RM_TOGG
-#define NP_L4_4  RM_VALD
-#define NP_L4_5  RM_VALU
-#define NP_L4_6  RM_SPDD
-#define NP_L4_7  RM_SPDU
+#define NP_RGB_NEXT  RM_NEXT  // Next RGB effect
+#define NP_RGB_PREV  RM_PREV  // Previous RGB effect
+#define NP_RGB_TOGG  RM_TOGG  // Toggle RGB on/off
+#define NP_RGB_VALD  RM_VALD  // RGB brightness down
+#define NP_RGB_VALU  RM_VALU  // RGB brightness up
+#define NP_RGB_SPDD  RM_SPDD  // RGB animation speed down
+#define NP_RGB_SPDU  RM_SPDU  // RGB animation speed up
 // Layer 4 encoders: RGB hue and saturation (Sofle Pro)
 #define NP_ENC4_L_CCW  RM_HUED
 #define NP_ENC4_L_CW   RM_HUEU
@@ -36,13 +36,13 @@
 #define NP_ENC4_R_CW   RM_SATU
 #else
 // Layer 4 top row: dead keys (no RGB on this board)
-#define NP_L4_1  XXXXXXX
-#define NP_L4_2  XXXXXXX
-#define NP_L4_3  XXXXXXX
-#define NP_L4_4  XXXXXXX
-#define NP_L4_5  XXXXXXX
-#define NP_L4_6  XXXXXXX
-#define NP_L4_7  XXXXXXX
+#define NP_RGB_NEXT  XXXXXXX
+#define NP_RGB_PREV  XXXXXXX
+#define NP_RGB_TOGG  XXXXXXX
+#define NP_RGB_VALD  XXXXXXX
+#define NP_RGB_VALU  XXXXXXX
+#define NP_RGB_SPDD  XXXXXXX
+#define NP_RGB_SPDU  XXXXXXX
 // Layer 4 encoders: transparent (no RGB on this board)
 #define NP_ENC4_L_CCW  KC_TRNS
 #define NP_ENC4_L_CW   KC_TRNS
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // On the Sofle Pro, the top row includes RGB controls.
     // On boards without RGB (e.g. Rev1), those keys are XXXXXXX.
     [4] = LAYOUT(
-    TO(0),   NP_L4_1, NP_L4_2, NP_L4_3, NP_L4_4, NP_L4_5,                        NP_L4_6, NP_L4_7, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
+    TO(0),   NP_RGB_NEXT, NP_RGB_PREV, NP_RGB_TOGG, NP_RGB_VALD, NP_RGB_VALU,                        NP_RGB_SPDD, NP_RGB_SPDU, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, C(KC_Z), C(KC_X), C(KC_C), XXXXXXX, C(KC_V), _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
