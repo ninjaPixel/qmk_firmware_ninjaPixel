@@ -98,9 +98,9 @@ bool oled_task_user(void) {
         }
         oled_write_P(PSTR("\n\n"), false);
 
-        // Show caps lock indicator
-        led_t led_usb_state = host_keyboard_led_state();
-        oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+        // Display branding text over two lines
+        oled_write_ln_P(PSTR("ninja"), false);
+        oled_write_ln_P(PSTR("Pixel"), false);
     }
     // On the master half we've already written our custom display above,
     // so return false to stop the board-level oled_task_kb() from
