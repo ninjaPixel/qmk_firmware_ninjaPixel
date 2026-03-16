@@ -61,20 +61,20 @@ Rather than `#ifdef` blocks inside `LAYOUT()` calls (which break tools like
 
 ```c
 #ifdef RGB_MATRIX_ENABLE
-#define NP_L4_1  RM_NEXT    // Sofle Pro: RGB controls
+#define NP_RGB_NEXT  RM_NEXT    // Sofle Pro: RGB controls
 #else
-#define NP_L4_1  XXXXXXX    // Rev1: dead key
+#define NP_RGB_NEXT  XXXXXXX    // Rev1: dead key
 #endif
 ```
 
-The `LAYOUT()` call then uses `NP_L4_1` etc., keeping the keymap data clean and
+The `LAYOUT()` call then uses `NP_RGB_NEXT` etc., keeping the keymap data clean and
 parseable by external tools.
 
 ### Currently supported boards
 
 | Board | Keymap directory | Notes |
 |---|---|---|
-| Sofle Pro | `keyboards/mechboards/sofle/pro/keymaps/ninjaPixel01/` | RGB matrix, rotary encoders, RP2040 |
+| Sofle Pro | `keyboards/mechboards/sofle/pro/keymaps/ninjaPixel_sofle_pro/` | RGB matrix, rotary encoders, RP2040 |
 | Sofle Rev1 | `keyboards/sofle/keymaps/ninjaPixel_sofle_rev1/` | OLED, rotary encoders, ATmega32u4 (Elite-C v4) |
 
 Both keymap directories contain a thin `keymap.c` that is just:
@@ -233,7 +233,7 @@ From the repository root, run the following to create a `.svg` keymap in the roo
 
 ```bash
 # For the Sofle Pro:
-qmk c2json -kb mechboards/sofle/pro -km ninjaPixel01 --no-cpp \
+qmk c2json -kb mechboards/sofle/pro -km ninjaPixel_sofle_pro --no-cpp \
     users/ninjaPixel/ninjaPixel_keymap.h \
   | keymap parse -c 10 -q - > keymap_vis.yaml \
   && keymap draw keymap_vis.yaml > keymap_sofle.svg
@@ -254,7 +254,7 @@ because `ninjaPixel_keymap.h` contains the `LAYOUT()` calls directly.
 
 ### Caveat: unexpanded macros
 
-With `--no-cpp`, board-specific macros like `NP_L4_1` appear as-is in the JSON output
+With `--no-cpp`, board-specific macros like `NP_RGB_NEXT` appear as-is in the JSON output
 rather than being expanded to their actual keycodes (e.g. `RM_NEXT` on Pro, `XXXXXXX`
 on Rev1). This is cosmetic only — the compiled firmware is unaffected. If this matters
 for the visualisation, you can customise the keymap-drawer YAML after generation to
@@ -271,8 +271,8 @@ keyboards, so each half must be flashed individually.
 ### Sofle Pro (RP2040 USB-C controllers)
 
 ```bash
-qmk compile -kb mechboards/sofle/pro -km ninjaPixel01
-qmk flash   -kb mechboards/sofle/pro -km ninjaPixel01
+qmk compile -kb mechboards/sofle/pro -km ninjaPixel_sofle_pro
+qmk flash   -kb mechboards/sofle/pro -km ninjaPixel_sofle_pro
 ```
 
 **Flashing procedure:**

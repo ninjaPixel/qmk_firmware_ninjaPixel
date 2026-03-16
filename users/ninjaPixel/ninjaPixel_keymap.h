@@ -22,13 +22,13 @@
 // ──────────────────────────────────────────────────────────────
 #ifdef RGB_MATRIX_ENABLE
 // Layer 4 top row: RGB matrix controls (Sofle Pro)
-#define NP_L4_1  RM_NEXT
-#define NP_L4_2  RM_PREV
-#define NP_L4_3  RM_TOGG
-#define NP_L4_4  RM_VALD
-#define NP_L4_5  RM_VALU
-#define NP_L4_6  RM_SPDD
-#define NP_L4_7  RM_SPDU
+#define NP_RGB_NEXT  RM_NEXT  // Next RGB effect
+#define NP_RGB_PREV  RM_PREV  // Previous RGB effect
+#define NP_RGB_TOGG  RM_TOGG  // Toggle RGB on/off
+#define NP_RGB_VALD  RM_VALD  // RGB brightness down
+#define NP_RGB_VALU  RM_VALU  // RGB brightness up
+#define NP_RGB_SPDD  RM_SPDD  // RGB animation speed down
+#define NP_RGB_SPDU  RM_SPDU  // RGB animation speed up
 // Layer 4 encoders: RGB hue and saturation (Sofle Pro)
 #define NP_ENC4_L_CCW  RM_HUED
 #define NP_ENC4_L_CW   RM_HUEU
@@ -36,13 +36,13 @@
 #define NP_ENC4_R_CW   RM_SATU
 #else
 // Layer 4 top row: dead keys (no RGB on this board)
-#define NP_L4_1  XXXXXXX
-#define NP_L4_2  XXXXXXX
-#define NP_L4_3  XXXXXXX
-#define NP_L4_4  XXXXXXX
-#define NP_L4_5  XXXXXXX
-#define NP_L4_6  XXXXXXX
-#define NP_L4_7  XXXXXXX
+#define NP_RGB_NEXT  XXXXXXX
+#define NP_RGB_PREV  XXXXXXX
+#define NP_RGB_TOGG  XXXXXXX
+#define NP_RGB_VALD  XXXXXXX
+#define NP_RGB_VALU  XXXXXXX
+#define NP_RGB_SPDD  XXXXXXX
+#define NP_RGB_SPDU  XXXXXXX
 // Layer 4 encoders: transparent (no RGB on this board)
 #define NP_ENC4_L_CCW  KC_TRNS
 #define NP_ENC4_L_CW   KC_TRNS
@@ -55,8 +55,71 @@
 // ──────────────────────────────────────────────────────────────
 // Tap Dance definitions
 // ──────────────────────────────────────────────────────────────
+
+// ── Screenshot tap dance ──
+// OS-aware screenshot key that checks whether the Windows base layer
+// (layer 1) is active to decide which keycodes to send.
+//
+// Mac (layer 1 OFF):
+//   1 tap  → Cmd+Shift+4  (selection screenshot)
+//   2 taps → Cmd+Shift+3  (full screen screenshot)
+//   3 taps → Cmd+Shift+5  (screenshot toolbar)
+//
+// Windows (layer 1 ON):
+//   1 tap  → Win+Shift+S  (Snipping Tool / selection screenshot)
+//   2 taps → Print Screen (full screen screenshot)
+
+// Holds the resolved tap count so td_screenshot_reset can unregister keys.
+static uint8_t td_screenshot_tap_count = 0;
+
+// Called when QMK resolves the tap dance (i.e. the tap sequence is complete).
+// Reads the current layer state to determine OS and sends the appropriate
+// screenshot shortcut based on how many times the key was tapped.
+void td_screenshot_finished(tap_dance_state_t *state, void *user_data) {
+    td_screenshot_tap_count = state->count;
+
+    // Layer 1 is the Windows base layer; if it's active we're in Windows mode.
+    bool is_windows = IS_LAYER_ON(1);
+
+    if (is_windows) {
+        switch (td_screenshot_tap_count) {
+            case 1:
+                // Windows selection screenshot — opens the Snipping Tool overlay.
+                tap_code16(LGUI(LSFT(KC_S)));
+                break;
+            case 2:
+                // Windows full screen screenshot — classic Print Screen key.
+                tap_code16(KC_PSCR);
+                break;
+        }
+    } else {
+        // Mac mode (default — layer 1 is not active).
+        switch (td_screenshot_tap_count) {
+            case 1:
+                // Mac selection screenshot — crosshair to drag a region.
+                tap_code16(LGUI(LSFT(KC_4)));
+                break;
+            case 2:
+                // Mac full screen screenshot — captures the entire display.
+                tap_code16(LGUI(LSFT(KC_3)));
+                break;
+            case 3:
+                // Mac screenshot toolbar — opens the floating screenshot/record UI.
+                tap_code16(LGUI(LSFT(KC_5)));
+                break;
+        }
+    }
+}
+
+// Called when the tap dance key is fully released. Resets the stored tap count.
+void td_screenshot_reset(tap_dance_state_t *state, void *user_data) {
+    td_screenshot_tap_count = 0;
+}
+
 tap_dance_action_t tap_dance_actions[] = {
     [TD_NOODLE] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_B),
+    // Screenshot: custom tap dance with OS detection (see callbacks above).
+    [TD_SCREENSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_screenshot_finished, td_screenshot_reset),
 };
 
 // ──────────────────────────────────────────────────────────────
@@ -70,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,          KC_7,    KC_8,     KC_9,   KC_0,    LALT(KC_TAB),
     TD(TD_NOODLE), KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                        KC_J,          KC_L,    KC_U,     KC_Y,   KC_BSLS, LALT(KC_BSPC),
     KC_TAB,        KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                        KC_M,          KC_N,    KC_E,     KC_I,   KC_O,    KC_BSPC,
-    XXXXXXX,       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                 KC_MUTE,      KC_MPLY, KC_K,          KC_H,    KC_COMMA, KC_DOT, KC_SLSH, KC_LSFT,
+    TD(TD_SCREENSHOT), KC_Z, KC_X,   KC_C,    KC_D,    KC_V,                 KC_MUTE,      KC_MPLY, KC_K,          KC_H,    KC_COMMA, KC_DOT, KC_SLSH, KC_LSFT,
                             KC_LCTL, KC_LALT, KC_LGUI, MT(MOD_RSFT, KC_ENT), KC_HYPR,      KC_MEH,  LT(2, KC_SPC), KC_RGUI, KC_RALT,  KC_RCTL
     ),
 
@@ -113,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // On the Sofle Pro, the top row includes RGB controls.
     // On boards without RGB (e.g. Rev1), those keys are XXXXXXX.
     [4] = LAYOUT(
-    TO(0),   NP_L4_1, NP_L4_2, NP_L4_3, NP_L4_4, NP_L4_5,                        NP_L4_6, NP_L4_7, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
+    TO(0),   NP_RGB_NEXT, NP_RGB_PREV, NP_RGB_TOGG, NP_RGB_VALD, NP_RGB_VALU,                        NP_RGB_SPDD, NP_RGB_SPDU, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, C(KC_Z), C(KC_X), C(KC_C), XXXXXXX, C(KC_V), _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,

@@ -4,7 +4,7 @@ layers:
   - [ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9']
   - ['0', Alt+TAB, TD(TD NOODLE), Q, W, F, P, B, J, L]
   - [U, Y, \, Alt+BSPC, TAB, A, R, S, T, G]
-  - [M, N, E, I, O, BSPC, '', Z, X, C]
+  - [M, N, E, I, O, BSPC, TD(TD SCREENSHOT), Z, X, C]
   - [D, V, MUTE, MPLY, K, H, ',', ., /, LSFT]
   - - LCTL
     - LALT
@@ -192,13 +192,13 @@ layers:
     - {t: ▽, type: trans}
   L4:
   - - {t: L0, h: toggle}
-    - NP L4 1
-    - NP L4 2
-    - NP L4 3
-    - NP L4 4
-    - NP L4 5
-    - NP L4 6
-    - NP L4 7
+    - NP RGB NEXT
+    - NP RGB PREV
+    - NP RGB TOGG
+    - NP RGB VALD
+    - NP RGB VALU
+    - NP RGB SPDD
+    - NP RGB SPDU
     - ''
     - ''
   - - ''

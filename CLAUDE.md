@@ -1,9 +1,11 @@
 This fork of QMK is for the local development of the following keyboards:
 - `mechboards/sofle/pro`
 - `sofle/rev1`
-- `preonic/rev3_drop` 
+- `preonic/rev3_drop`
 
-The `mechboards/sofle/pro` layout is mainly complete and the next stages of this project are to port the keymaps to the other 2 boards.
+The 2 sofle boards share a keymap. See the `users/ninjaPixel` directory for more information.
+
+The sofle layout is mainly complete and the next stages of this project are to port the keymaps to the other boards.
 The base layout is for MacOS, using the Colemak layout. The layout is designed to also work with Windows, and there are additional layers to deal with the 
 Windows operating system; these layers are mainly transparent keys (which fall through to the lower Mac layer) but some keys declare Windows-centric shortcuts / keys etc.
 
