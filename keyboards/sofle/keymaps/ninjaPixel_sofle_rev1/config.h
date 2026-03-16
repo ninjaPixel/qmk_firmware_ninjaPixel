@@ -1,8 +1,8 @@
-// Copyright 2024 Santosh Kumar (@santosh)
+// Copyright 2025 ninjaPixel
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
-#define TRI_LAYER_LOWER_LAYER 2
-#define TRI_LAYER_UPPER_LAYER 3
-#define TRI_LAYER_ADJUST_LAYER 4
+// No additional configuration needed for this keymap.
+// The tri-layer config has been removed since this keymap uses its own
+// layer switching logic (layer_state_set_user) instead of QMK's TRI_LAYER feature.
