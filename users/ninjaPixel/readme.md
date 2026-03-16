@@ -74,7 +74,7 @@ parseable by external tools.
 
 | Board | Keymap directory | Notes |
 |---|---|---|
-| Sofle Pro | `keyboards/mechboards/sofle/pro/keymaps/ninjaPixel01/` | RGB matrix, rotary encoders, RP2040 |
+| Sofle Pro | `keyboards/mechboards/sofle/pro/keymaps/ninjaPixel_sofle_pro/` | RGB matrix, rotary encoders, RP2040 |
 | Sofle Rev1 | `keyboards/sofle/keymaps/ninjaPixel_sofle_rev1/` | OLED, rotary encoders, ATmega32u4 (Elite-C v4) |
 
 Both keymap directories contain a thin `keymap.c` that is just:
@@ -233,7 +233,7 @@ From the repository root, run the following to create a `.svg` keymap in the roo
 
 ```bash
 # For the Sofle Pro:
-qmk c2json -kb mechboards/sofle/pro -km ninjaPixel01 --no-cpp \
+qmk c2json -kb mechboards/sofle/pro -km ninjaPixel_sofle_pro --no-cpp \
     users/ninjaPixel/ninjaPixel_keymap.h \
   | keymap parse -c 10 -q - > keymap_vis.yaml \
   && keymap draw keymap_vis.yaml > keymap_sofle.svg
@@ -271,8 +271,8 @@ keyboards, so each half must be flashed individually.
 ### Sofle Pro (RP2040 USB-C controllers)
 
 ```bash
-qmk compile -kb mechboards/sofle/pro -km ninjaPixel01
-qmk flash   -kb mechboards/sofle/pro -km ninjaPixel01
+qmk compile -kb mechboards/sofle/pro -km ninjaPixel_sofle_pro
+qmk flash   -kb mechboards/sofle/pro -km ninjaPixel_sofle_pro
 ```
 
 **Flashing procedure:**
