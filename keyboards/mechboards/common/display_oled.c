@@ -207,19 +207,19 @@ const char *layer_string(uint32_t layer) {
     char *layer_str;
     switch (layer) {
         case 0:
-            layer_str = "Zero\0";
+            layer_str = "Mac 0\0";
             break;
         case 1:
-            layer_str = "One\0";
+            layer_str = "Win 0\0";
             break;
         case 2:
-            layer_str = "Two\0";
+            layer_str = "Mac 1\0";
             break;
         case 3:
-            layer_str = "Three\0";
+            layer_str = "Win 1\0";
             break;
         case 4:
-            layer_str = "Four\0";
+            layer_str = "RGB\0";
             break;
         case 5:
             layer_str = "Five\0";
