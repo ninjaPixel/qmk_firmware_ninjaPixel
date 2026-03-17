@@ -14,6 +14,7 @@
 #pragma once
 
 #include "ninjaPixel.h"
+#include "os_detection.h"
 
 // ──────────────────────────────────────────────────────────────
 // Board-specific key aliases for layer 4 (keyboard settings).
@@ -57,15 +58,16 @@
 // ──────────────────────────────────────────────────────────────
 
 // ── Screenshot tap dance ──
-// OS-aware screenshot key that checks whether the Windows base layer
-// (layer 1) is active to decide which keycodes to send.
+// OS-aware screenshot key that uses QMK's OS detection feature
+// (https://docs.qmk.fm/features/os_detection) to determine whether to
+// send Mac or Windows screenshot shortcuts.
 //
-// Mac (layer 1 OFF):
+// Mac (detected_host_os() == OS_MACOS or OS_IOS):
 //   1 tap  → Cmd+Shift+4  (selection screenshot)
 //   2 taps → Cmd+Shift+3  (full screen screenshot)
 //   3 taps → Cmd+Shift+5  (screenshot toolbar)
 //
-// Windows (layer 1 ON):
+// Windows (detected_host_os() == OS_WINDOWS):
 //   1 tap  → Win+Shift+S  (Snipping Tool / selection screenshot)
 //   2 taps → Print Screen (full screen screenshot)
 
@@ -73,13 +75,15 @@
 static uint8_t td_screenshot_tap_count = 0;
 
 // Called when QMK resolves the tap dance (i.e. the tap sequence is complete).
-// Reads the current layer state to determine OS and sends the appropriate
+// Uses QMK's OS detection to determine the host OS and sends the appropriate
 // screenshot shortcut based on how many times the key was tapped.
 void td_screenshot_finished(tap_dance_state_t *state, void *user_data) {
     td_screenshot_tap_count = state->count;
 
-    // Layer 1 is the Windows base layer; if it's active we're in Windows mode.
-    bool is_windows = IS_LAYER_ON(1);
+    // Use QMK's OS detection to determine the host operating system.
+    // This replaces the previous approach of checking layer state.
+    os_variant_t host_os = detected_host_os();
+    bool is_windows = (host_os == OS_WINDOWS);
 
     if (is_windows) {
         switch (td_screenshot_tap_count) {
