@@ -3,7 +3,7 @@
 //
 // Shared callback functions for all ninjaPixel keyboards.
 // Contains layer-switching logic, RGB indicator control (Pro only),
-// and OLED display (Rev1 only).
+// and OLED display.
 //
 // The keymap data arrays (keymaps, encoder_map, tap_dance_actions) live in
 // ninjaPixel_keymap.h and are included from each board's keymap.c instead,
@@ -67,51 +67,172 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #endif
 
 // ──────────────────────────────────────────────────────────────
-// OLED display — Sofle Rev1 only
-// Overrides the board-level oled_task_kb() layer names with names
-// that match this keymap's actual layer structure.
-// The master half shows the active layer name and branding text.
-// The secondary half falls through to the board-level QMK logo render.
+// OLED display — unified for both Sofle Pro and Rev1
+//
+// Master (left) half shows a three-section dashboard:
+//   Row 0 : "Layer" header
+//   Row 1 : horizontal spacer line
+//   Row 2 : active layer name  (updates on layer change)
+//   Row 4 : "OS" header
+//   Row 5 : horizontal spacer line
+//   Row 6 : detected OS name   (written once on detection)
+//   Row 8 : "Rate" header
+//   Row 9 : horizontal spacer line
+//   Row 10: loop rate           (updates every second)
+//   Row 14-15: branding
+//
+// Secondary (right) half defers to the board-level code which
+// renders the mechboards logo / WPM / RGB info (Pro) or the
+// QMK logo (Rev1).
+//
+// On the Pro, the board-level display_oled.c master-half writes
+// are disabled via CUSTOM_OLED_DISPLAY defined in the keymap's
+// config.h.  On the Rev1, returning false from oled_task_user()
+// blocks the board-level oled_task_kb() master rendering.
 // ──────────────────────────────────────────────────────────────
 #ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        // Show the active layer name
-        oled_write_P(PSTR("\n\n"), false);
-        switch (get_highest_layer(layer_state)) {
-            case 0:
-                oled_write_ln_P(PSTR("Mac 0"), false);
-                break;
-            case 1:
-                oled_write_ln_P(PSTR("Win 0"), false);
-                break;
-            case 2:
-                oled_write_ln_P(PSTR("Mac 1"), false);
-                break;
-            case 3:
-                oled_write_ln_P(PSTR("Win 1"), false);
-                break;
-            case 4:
-                oled_write_ln_P(PSTR("KBD"), false);
-                break;
-            case 5:
-                oled_write_ln_P(PSTR("Tmpl"), false);
-                break;
-            default:
-                oled_write_ln_P(PSTR("?????"), false);
-                break;
-        }
-        oled_write_P(PSTR("\n\n"), false);
 
-        // Display branding text over two lines
-        oled_write_ln_P(PSTR("ninja"), false);
-        oled_write_ln_P(PSTR("Pixel"), false);
+// ── Horizontal spacer line ──
+// Draws a thin horizontal rule across the full 5-character OLED width.
+// Each 7-byte chunk sets bit 3 in every column of one character cell,
+// producing a 1-pixel-high line — same technique as render_spacer()
+// in the Pro's display_oled.c.
+static void render_user_spacer(void) {
+    static const char PROGMEM spacer_px[] = {8, 8, 8, 8, 8, 8, 8};
+    for (uint8_t i = 0; i < 5; i++) {
+        oled_write_raw_P(spacer_px, sizeof(spacer_px));
+        oled_advance_char();
     }
-    // On the master half we've already written our custom display above,
-    // so return false to stop the board-level oled_task_kb() from
-    // overwriting it with the default layer names.
-    // On the secondary half we haven't written anything, so return true
-    // to let the board-level code render the QMK logo as usual.
-    return !is_keyboard_master();
 }
-#endif
+
+// ── State tracked for OLED rendering ──
+static os_variant_t detected_os_cache = OS_UNSURE;
+static bool         os_detected       = false;
+static uint16_t     user_loop_rate    = 0;
+
+// ── Helper: return a human-readable name for a layer number ──
+static const char *user_layer_name(uint8_t layer) {
+    switch (layer) {
+        case 0:  return "Mac 0";
+        case 1:  return "Win 0";
+        case 2:  return "Mac 1";
+        case 3:  return "Win 1";
+        case 4:  return "KBD";
+        case 5:  return "Tmpl";
+        default: return "?????";
+    }
+}
+
+// ── Helper: return a human-readable name for a detected OS ──
+static const char *user_os_name(os_variant_t os) {
+    switch (os) {
+        case OS_MACOS:   return "MacOS";
+        case OS_IOS:     return "iOS";
+        case OS_WINDOWS: return "Win";
+        case OS_LINUX:   return "Linux";
+        default:         return "?????";
+    }
+}
+
+// ── OS detection callback ──
+// Captures the detected OS so oled_task_user() can display it.
+// Returns true so board-level code can also act on the detection
+// (e.g. the Pro's layer-switching logic).
+bool process_detected_host_os_user(os_variant_t detected_os) {
+    detected_os_cache = detected_os;
+    os_detected       = true;
+    return true;
+}
+
+// ── Loop rate computation ──
+// Runs every scan cycle on the master half.  Counts iterations per
+// second and stores the result for the Rate row on the OLED.
+//
+// The loop rate is how many times per second QMK's main scan loop executes — i.e., how many times the
+//   firmware checks for key presses, updates LEDs, runs housekeeping, etc.
+//
+//   Why it matters: It's a rough health indicator for your firmware. A typical rate is ~1000–2000+ Hz. If it
+//   drops significantly, it means something in your firmware is taking too long per cycle, which can cause:
+//
+//   - Noticeable input latency (keypresses feel sluggish)
+//   - Missed fast key presses or tap-dance timing issues
+//   - Choppy RGB animations
+void housekeeping_task_user(void) {
+    if (is_keyboard_master()) {
+        static uint32_t     loop_count = 0;
+        static fast_timer_t loop_time  = 0;
+        loop_count++;
+        if (timer_elapsed_fast(loop_time) > 1000) {
+            loop_time      = timer_read_fast();
+            user_loop_rate = loop_count > UINT16_MAX ? UINT16_MAX : (uint16_t)loop_count;
+            loop_count     = 0;
+        }
+    }
+}
+
+// ── Main OLED task — renders the master-half dashboard ──
+bool oled_task_user(void) {
+    // Secondary half: let board-level code render its default content
+    // (mechboards logo/WPM/RGB on Pro, QMK logo on Rev1).
+    if (!is_keyboard_master()) {
+        return true;
+    }
+
+    // ── Draw section headers once after boot ──
+    static bool headers_drawn = false;
+    if (!headers_drawn) {
+        headers_drawn = true;
+
+        oled_set_cursor(0, 0);
+        oled_write("Layer", false);
+        oled_set_cursor(0, 1);         // move to next row before drawing line
+        render_user_spacer();
+
+        oled_set_cursor(0, 4);
+        oled_write("OS", false);
+        oled_set_cursor(0, 5);         // move to next row before drawing line
+        render_user_spacer();
+
+        oled_set_cursor(0, 8);
+        oled_write("Rate", false);
+        oled_set_cursor(0, 9);         // move to next row before drawing line
+        render_user_spacer();
+
+        // Branding pushed to the bottom of the display
+        oled_set_cursor(0, 14);
+        oled_write("ninja", false);
+        oled_set_cursor(0, 15);
+        oled_write("Pixel", false);
+    }
+
+    // ── Layer name (row 2) — only re-render when layer changes ──
+    static uint8_t last_layer = 255;
+    uint8_t        cur_layer  = get_highest_layer(layer_state);
+    if (cur_layer != last_layer) {
+        last_layer = cur_layer;
+        oled_set_cursor(0, 2);
+        oled_write_ln(user_layer_name(cur_layer), false);
+    }
+
+    // ── OS name (row 6) — render once when OS is first detected ──
+    static bool os_rendered = false;
+    if (os_detected && !os_rendered) {
+        os_rendered = true;
+        oled_set_cursor(0, 6);
+        oled_write_ln(user_os_name(detected_os_cache), false);
+    }
+
+    // ── Loop rate (row 10) — update when the value changes ──
+    static uint16_t last_rate = 0;
+    if (user_loop_rate != last_rate) {
+        last_rate = user_loop_rate;
+        oled_set_cursor(0, 10);
+        oled_write_ln(get_u16_str(user_loop_rate, ' '), false);
+    }
+
+    // Return false to block any remaining board-level master-half
+    // OLED writes (Rev1's oled_task_kb, Pro's guarded-out code).
+    return false;
+}
+
+#endif // OLED_ENABLE

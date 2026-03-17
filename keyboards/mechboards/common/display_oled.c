@@ -242,6 +242,8 @@ bool process_detected_host_os_kb(os_variant_t detected_os) {
         return false;
     }
 
+#ifndef CUSTOM_OLED_DISPLAY
+    // Write the detected OS name to the master-half OLED.
     oled_set_cursor(0, 10);
     switch (detected_os) {
         case OS_MACOS:
@@ -260,6 +262,7 @@ bool process_detected_host_os_kb(os_variant_t detected_os) {
 
             break;
     }
+#endif
 
     return true;
 }
@@ -268,6 +271,10 @@ void keyboard_post_init_kb(void) {
     if (!is_keyboard_master()) {
         render_logo();
     } else {
+#ifndef CUSTOM_OLED_DISPLAY
+        // Default master-half OLED layout: Layer / Key / OS / Rate.
+        // Keymaps can define CUSTOM_OLED_DISPLAY to skip this and render
+        // their own layout from user-level callbacks instead.
         oled_set_cursor(0, 0);
         oled_write("Layer", false);
         render_spacer(5);
@@ -288,14 +295,18 @@ void keyboard_post_init_kb(void) {
         oled_set_cursor(0, 12);
         oled_write_ln("Rate", false);
         render_spacer(4);
+#endif
     }
     keyboard_post_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
+#ifndef CUSTOM_OLED_DISPLAY
+    // Update the layer name on the master-half OLED.
     oled_set_cursor(0, 2);
     oled_write_ln(layer_string(get_highest_layer(state)), false);
+#endif
     return state;
 }
 
@@ -314,10 +325,13 @@ void     housekeeping_task_kb(void) {
             loop_time  = timer_read_fast();
             loop_rate  = loop_count > UINT16_MAX ? UINT16_MAX : loop_count;
             loop_count = 0;
+#ifndef CUSTOM_OLED_DISPLAY
+            // Write the loop rate to the master-half OLED.
             if (is_oled_on()) {
                 oled_set_cursor(0, 14);
                 oled_write(depad_str(get_u16_str(loop_rate, ' '), ' '), false);
             }
+#endif
         }
     }
     if (is_oled_on() && last_input_activity_elapsed() > OLED_TIMEOUT) {
@@ -348,10 +362,14 @@ bool oled_task_kb(void) {
         return false;
     }
 
+#ifndef CUSTOM_OLED_DISPLAY
     static uint16_t last_keycode         = 0xFF;
+#endif
     static bool     oled_slave_init_done = false;
 
     if (is_keyboard_master()) {
+#ifndef CUSTOM_OLED_DISPLAY
+        // Update the last-pressed key on the master-half OLED.
         if (last_keycode != current_keycode) {
             oled_set_cursor(0, 6);
             if (current_keycode < ARRAY_SIZE(basic_codes_to_name)) {
@@ -362,6 +380,7 @@ bool oled_task_kb(void) {
             }
             last_keycode = current_keycode;
         }
+#endif
     } else {
         if (!oled_slave_init_done) {
             if (timer_elapsed32(0) > 5000) {

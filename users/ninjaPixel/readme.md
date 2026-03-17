@@ -236,14 +236,15 @@ From the repository root, run the following to create a `.svg` keymap in the roo
 qmk c2json -kb mechboards/sofle/pro -km ninjaPixel_sofle_pro --no-cpp \
     users/ninjaPixel/ninjaPixel_keymap.h \
   | keymap parse -c 10 -q - > keymap_vis.yaml \
-  && keymap draw keymap_vis.yaml > keymap_sofle.svg
+  && keymap draw keymap_vis.yaml > users/ninjaPixel/keymap_sofle_pro.svg
 
 # For the Sofle Rev1 (this results in the same thing!):
 qmk c2json -kb sofle/rev1 -km ninjaPixel_sofle_rev1 --no-cpp \
     users/ninjaPixel/ninjaPixel_keymap.h \
   | keymap parse -c 10 -q - > keymap_vis.yaml \
-  && keymap draw keymap_vis.yaml > keymap_sofle.svg
+  && keymap draw keymap_vis.yaml > users/ninjaPixel/keymap_sofle_v1.svg
 ```
+
 
 ### Why `--no-cpp` is needed
 
