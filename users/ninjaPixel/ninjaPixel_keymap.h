@@ -176,11 +176,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // On the Sofle Pro, the top row includes RGB controls.
     // On boards without RGB (e.g. Rev1), those keys are XXXXXXX.
     [4] = LAYOUT(
-    TO(0),   NP_RGB_NEXT, NP_RGB_PREV, NP_RGB_TOGG, NP_RGB_VALD, NP_RGB_VALU,                        NP_RGB_SPDD, NP_RGB_SPDU, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, C(KC_Z), C(KC_X), C(KC_C), XXXXXXX, C(KC_V), _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______
+    TO(0),   NP_RGB_NEXT, NP_RGB_PREV, NP_RGB_TOGG, NP_RGB_VALD, NP_RGB_VALU,      NP_RGB_SPDD, NP_RGB_SPDU, XXXXXXX, XXXXXXX, XXXXXXX, TO(1),
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                       XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                                       XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, C(KC_Z), C(KC_X), C(KC_C), XXXXXXX, C(KC_V), _______,                 _______,     XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                      _______, _______, _______, _______, _______,                 _______,     _______,     _______, _______, _______
     ),
 
     // Transparent template (Layer 5) — all keys pass through to lower layers.
