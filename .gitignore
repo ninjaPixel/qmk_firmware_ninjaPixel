@@ -102,7 +102,7 @@ tags
 !docs/public/**.jpg
 !docs/public/**.jpeg
 !docs/public/**.png
-!keymap.svg
+!keymap*.svg
 
 # Things Travis sees
 /.vs
