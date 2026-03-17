@@ -3,7 +3,7 @@
 //
 // Shared callback functions for all ninjaPixel keyboards.
 // Contains layer-switching logic, RGB indicator control (Pro only),
-// and OLED display (Rev1 only).
+// and OLED display.
 //
 // The keymap data arrays (keymaps, encoder_map, tap_dance_actions) live in
 // ninjaPixel_keymap.h and are included from each board's keymap.c instead,
@@ -71,12 +71,15 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 //
 // Master (left) half shows a three-section dashboard:
 //   Row 0 : "Layer" header
+//   Row 1 : horizontal spacer line
 //   Row 2 : active layer name  (updates on layer change)
 //   Row 4 : "OS" header
+//   Row 5 : horizontal spacer line
 //   Row 6 : detected OS name   (written once on detection)
 //   Row 8 : "Rate" header
+//   Row 9 : horizontal spacer line
 //   Row 10: loop rate           (updates every second)
-//   Row 12-13: branding
+//   Row 14-15: branding
 //
 // Secondary (right) half defers to the board-level code which
 // renders the mechboards logo / WPM / RGB info (Pro) or the
@@ -88,6 +91,19 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 // blocks the board-level oled_task_kb() master rendering.
 // ──────────────────────────────────────────────────────────────
 #ifdef OLED_ENABLE
+
+// ── Horizontal spacer line ──
+// Draws a thin horizontal rule across the full 5-character OLED width.
+// Each 7-byte chunk sets bit 3 in every column of one character cell,
+// producing a 1-pixel-high line — same technique as render_spacer()
+// in the Pro's display_oled.c.
+static void render_user_spacer(void) {
+    static const char PROGMEM spacer_px[] = {8, 8, 8, 8, 8, 8, 8};
+    for (uint8_t i = 0; i < 5; i++) {
+        oled_write_raw_P(spacer_px, sizeof(spacer_px));
+        oled_advance_char();
+    }
+}
 
 // ── State tracked for OLED rendering ──
 static os_variant_t detected_os_cache = OS_UNSURE;
@@ -131,6 +147,16 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 // ── Loop rate computation ──
 // Runs every scan cycle on the master half.  Counts iterations per
 // second and stores the result for the Rate row on the OLED.
+//
+// The loop rate is how many times per second QMK's main scan loop executes — i.e., how many times the
+//   firmware checks for key presses, updates LEDs, runs housekeeping, etc.
+//
+//   Why it matters: It's a rough health indicator for your firmware. A typical rate is ~1000–2000+ Hz. If it
+//   drops significantly, it means something in your firmware is taking too long per cycle, which can cause:
+//
+//   - Noticeable input latency (keypresses feel sluggish)
+//   - Missed fast key presses or tap-dance timing issues
+//   - Choppy RGB animations
 void housekeeping_task_user(void) {
     if (is_keyboard_master()) {
         static uint32_t     loop_count = 0;
@@ -159,17 +185,23 @@ bool oled_task_user(void) {
 
         oled_set_cursor(0, 0);
         oled_write("Layer", false);
+        oled_set_cursor(0, 1);         // move to next row before drawing line
+        render_user_spacer();
 
         oled_set_cursor(0, 4);
         oled_write("OS", false);
+        oled_set_cursor(0, 5);         // move to next row before drawing line
+        render_user_spacer();
 
         oled_set_cursor(0, 8);
         oled_write("Rate", false);
+        oled_set_cursor(0, 9);         // move to next row before drawing line
+        render_user_spacer();
 
-        // Branding in the remaining space
-        oled_set_cursor(0, 12);
+        // Branding pushed to the bottom of the display
+        oled_set_cursor(0, 14);
         oled_write("ninja", false);
-        oled_set_cursor(0, 13);
+        oled_set_cursor(0, 15);
         oled_write("Pixel", false);
     }
 
