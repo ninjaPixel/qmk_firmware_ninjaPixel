@@ -33,33 +33,34 @@ enum layers {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base layer — standard Colemak (not Colemak-DH), MacOS-oriented.
-     *
-     * The Ferris Sweep is a 34-key split: a 3x5 grid of letter keys per hand
-     * plus two thumb keys per hand. The LAYOUT macro takes the keys row by row,
-     * left hand then right hand, and finishes with the four thumb keys.
-     *
-     *   ┌───────────────────────┐        ┌───────────────────────┐
-     *   │  Q    W    F    P    G │        │  J    L    U    Y    ; │
-     *   │  A    R    S    T    D │        │  H    N    E    I    O │
-     *   │  Z    X    C    V    B │        │  K    M    ,    .    / │
-     *   └─────────────┐         │        │         ┌─────────────┘
-     *                 │  1  Boot│        │ Boot  2 │
-     *                 └─────────┘        └─────────┘
-     *
-     * The four thumb keys are temporary placeholders. QK_BOOT sits on both
-     * inner thumbs so the board can always be dropped back into the RP2040
-     * bootloader from the keymap itself (handy while iterating — we never get
-     * stuck unable to reflash); the outer thumbs are 1 and 2 just to have
-     * something pressable. This whole thumb cluster will be replaced by the
-     * real design (mod-taps, layer-taps, a dedicated nav/boot layer, etc.) in
-     * the next iteration.
-     */
-    [_COLEMAK] = LAYOUT(
+    // Base layer — standard Colemak (not Colemak-DH), MacOS-oriented.
+    [0] = LAYOUT(
+        KC_Q,    KC_W,    KC_F,    KC_P,                    KC_B,           KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
+        KC_A,    KC_R,    KC_S,    KC_T,                    KC_G,           KC_M,    KC_N,    KC_E,    KC_I,    KC_O,
+        KC_Z,    KC_X,    KC_C,    KC_D,                    KC_V,           KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
+                                   MT(MOD_RSFT, KC_ENT),    KC_LGUI,        KC_LGUI, LT(1, KC_SPC)
+    ),
+
+    // Quick access layer
+    [1] = LAYOUT(
+        KC_ESC,  KC_W,    KC_F,    KC_P,    KC_G,           KC_J,     KC_L,    KC_U,    KC_Y,    KC_SCLN,
+        KC_A,    KC_R,    KC_S,    KC_T,    KC_D,           KC_MINUS, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,
+        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_K,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+                                   KC_1,    KC_BSPC,        QK_BOOT,  _______
+    ),
+    // Layer picker layer
+    [2] = LAYOUT(
         KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
         KC_A,    KC_R,    KC_S,    KC_T,    KC_D,         KC_H,    KC_N,    KC_E,    KC_I,    KC_O,
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                                   KC_1,    QK_BOOT,      QK_BOOT, KC_2
+                                   KC_1,    QK_BOOT,      QK_BOOT, LT(2, KC_SPC)
+    ),
+    // Template
+    [99] = LAYOUT(
+        KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
+        KC_A,    KC_R,    KC_S,    KC_T,    KC_D,         KC_H,    KC_N,    KC_E,    KC_I,    KC_O,
+        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+                                   KC_1,    QK_BOOT,      QK_BOOT, LT(2, KC_SPC)
     )
 };
 // clang-format on
