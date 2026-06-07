@@ -1,14 +1,4 @@
-// Copyright 2026 ninjaPixel
-// SPDX-License-Identifier: GPL-2.0-or-later
-//
-// Ferris Sweep — ninjaPixel keymap (proof-of-concept)
-// ----------------------------------------------------
-// This is a deliberately minimal, single-layer keymap whose only purpose is to
-// prove that we can build and flash firmware for the RP2040-based Ferris Sweep.
-// Once flashing is confirmed it will be expanded into a full multi-layer layout
-// (and most likely folded into the shared users/ninjaPixel/ userspace, the same
-// way the Sofle boards are).
-//
+
 // Hardware note — why the converter exists:
 //   The stock ferris/sweep board targets an AVR Pro Micro (ATmega32u4) and so
 //   builds a .hex flashed over the caterina serial bootloader. Our physical
@@ -29,38 +19,60 @@
 // that future layers can be added without renumbering everything.
 enum layers {
     _COLEMAK,
+    _SECONDARY,
+    _LAYER_PICKER,
+    _NUMBERS,
+    _FN_KEYS
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base layer — standard Colemak (not Colemak-DH), MacOS-oriented.
-    [0] = LAYOUT(
-        KC_Q,    KC_W,    KC_F,    KC_P,                    KC_B,           KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
-        KC_A,    KC_R,    KC_S,    KC_T,                    KC_G,           KC_M,    KC_N,    KC_E,    KC_I,    KC_O,
-        KC_Z,    KC_X,    KC_C,    KC_D,                    KC_V,           KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
-                                   MT(MOD_RSFT, KC_ENT),    KC_LGUI,        KC_LGUI, LT(1, KC_SPC)
+    [_COLEMAK] = LAYOUT(
+        KC_Q,    KC_W,    KC_F,    KC_P,                 KC_B,            KC_J,               KC_L,                   KC_U,    KC_Y,    KC_SCLN,
+        KC_A,    KC_R,    KC_S,    KC_T,                 KC_G,            KC_M,               KC_N,                   KC_E,    KC_I,    KC_O,
+        KC_Z,    KC_X,    KC_C,    KC_D,                 KC_V,            KC_K,               KC_H,                   KC_COMM, KC_DOT,  KC_SLSH,
+                                   MT(MOD_RSFT, KC_ENT), KC_LGUI,         OSL(_LAYER_PICKER), LT(_SECONDARY, KC_SPC)
+    ),
+
+
+
+    // Layer picker layer and sticky modifiers
+    [_LAYER_PICKER] = LAYOUT(
+        KC_L,    _______, _______, _______, QK_BOOT,             _______,      _______,        _______,      _______, _______,
+        _______, _______, _______, _______, _______,             _______,      _______,        _______,      _______, _______,
+        _______, _______, _______, _______, _______,             _______,      TO(_NUMBERS),   TO(_FN_KEYS), _______, _______,
+                                   _______, _______,             TO(_COLEMAK), _______
+    ),
+
+
+    [_NUMBERS] = LAYOUT(
+        KC_N,    _______, _______, _______, _______,            _______,      KC_7,     KC_8, KC_9, _______,
+        _______, _______, _______, _______, _______,            _______,      KC_4,     KC_5, KC_6, _______,
+        _______, _______, _______, _______, _______,            KC_0,         KC_1,     KC_2, KC_3, _______,
+                                   _______, _______,            TO(_COLEMAK), LT(_SECONDARY, KC_SPC)
+    ),
+
+    [_FN_KEYS] = LAYOUT(
+        KC_F,    _______, _______, _______, _______,            _______,      KC_F7,     KC_F8, KC_F9, KC_F12,
+        _______, _______, _______, _______, _______,            _______,      KC_F4,     KC_F5, KC_F6, KC_F11,
+        _______, _______, _______, _______, _______,            _______,      KC_F1,     KC_F2, KC_F3, KC_F10,
+                                   _______, _______,            TO(_COLEMAK), _______
     ),
 
     // Quick access layer
-    [1] = LAYOUT(
-        KC_ESC,  KC_W,    KC_F,    KC_P,    KC_G,           KC_J,     KC_L,    KC_U,    KC_Y,    LALT(KC_BSPC),
-        KC_A,    KC_R,    KC_S,    KC_T,    KC_D,           KC_MINUS, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,
-        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_K,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                                   KC_1,    KC_BSPC,        QK_BOOT,  _______
-    ),
-    // Layer picker layer
-    [2] = LAYOUT(
-        KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
-        KC_A,    KC_R,    KC_S,    KC_T,    KC_D,         KC_H,    KC_N,    KC_E,    KC_I,    KC_O,
-        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                                   KC_1,    QK_BOOT,      QK_BOOT, LT(2, KC_SPC)
-    ),
-    // Template
-    [99] = LAYOUT(
-        _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-                                   _______, _______,      _______, _______
+    [_SECONDARY] = LAYOUT(
+        KC_ESC,  _______, _______, _______, _______,             _______,       _______, _______, _______, LALT(KC_BSPC),
+        KC_TAB,  _______, _______, _______, _______,             KC_MINUS,      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,
+        _______, _______, _______, _______, _______,             _______,       _______, _______, _______, _______,
+                                   _______, KC_BSPC,             TO(_COLEMAK),  _______
     )
+    // Template
+    // [_FOO] = LAYOUT(
+    //     KC_T,    _______, _______, _______, _______,      _______,      _______, _______, _______, _______,
+    //     _______, _______, _______, _______, _______,      _______,      _______, _______, _______, _______,
+    //     _______, _______, _______, _______, _______,      _______,      _______, _______, _______, _______,
+    //                                _______, _______,      TO(_COLEMAK), _______
+    // )
 };
 // clang-format on
