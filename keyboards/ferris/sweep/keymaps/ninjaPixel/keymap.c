@@ -19,10 +19,10 @@
 // that future layers can be added without renumbering everything.
 enum layers {
     _COLEMAK,
-    _SECONDARY,
     _LAYER_PICKER,
     _NUMBERS,
-    _FN_KEYS
+    _FN_KEYS,
+    _SECONDARY
 };
 
 // clang-format off
