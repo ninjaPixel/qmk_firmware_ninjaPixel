@@ -47,14 +47,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_NUMBERS] = LAYOUT(
-        KC_N,    _______, _______, _______, _______,            _______,      KC_7,     KC_8, KC_9, _______,
+        KC_N,    _______, _______, _______, XXXXXXX,            _______,      KC_7,     KC_8, KC_9, _______,
         _______, _______, _______, _______, _______,            _______,      KC_4,     KC_5, KC_6, _______,
         _______, _______, KC_PLUS, KC_EQL,  KC_DOT,             KC_0,         KC_1,     KC_2, KC_3, _______,
                                    _______, _______,            TO(_COLEMAK), LT(_SECONDARY, KC_SPC)
     ),
 
     [_FN_KEYS] = LAYOUT(
-        KC_F,    _______, _______, _______, _______,            _______,      KC_F7,     KC_F8, KC_F9, KC_F12,
+        KC_F,    _______, _______, _______, XXXXXXX,            _______,      KC_F7,     KC_F8, KC_F9, KC_F12,
         _______, _______, _______, _______, _______,            _______,      KC_F4,     KC_F5, KC_F6, KC_F11,
         _______, _______, _______, _______, _______,            _______,      KC_F1,     KC_F2, KC_F3, KC_F10,
                                    _______, _______,            TO(_COLEMAK), _______
@@ -62,14 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Quick access layer
     [_SECONDARY] = LAYOUT(
-        KC_ESC,         _______, _______,   _______, _______,             _______,       _______,       _______, _______, LALT(KC_BSPC),
-        LALT(KC_DEL),   KC_DEL,  KC_QUOTE,  KC_SEMICOLON, KC_LALT,        KC_MINUS,      KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,
-        KC_TAB,         _______, _______,   _______, _______,             _______,       LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),
-                                            _______, KC_BSPC,             TO(_COLEMAK),  _______
+        KC_ESC,         KC_LBRC, KC_LPRN,   KC_LCBR,      KC_GRV,              _______,       KC_RCBR,       KC_RPRN, KC_RBRC, LALT(KC_BSPC),
+        LALT(KC_DEL),   KC_DEL,  KC_QUOTE,  KC_SEMICOLON, KC_LALT,             KC_MINUS,      KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,
+        KC_TAB,         _______, _______,   _______,      _______,             _______,       LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),
+                                            _______,      KC_BSPC,             TO(_COLEMAK),  _______
     )
     // Template
     // [_FOO] = LAYOUT(
-    //     KC_T,    _______, _______, _______, _______,      _______,      _______, _______, _______, _______,
+    //     KC_T,    _______, _______, _______, XXXXXXX,      _______,      _______, _______, _______, _______,
     //     _______, _______, _______, _______, _______,      _______,      _______, _______, _______, _______,
     //     _______, _______, _______, _______, _______,      _______,      _______, _______, _______, _______,
     //                                _______, _______,      TO(_COLEMAK), _______
