@@ -39,10 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Layer picker layer and sticky modifiers
     [_LAYER_PICKER] = LAYOUT(
-        KC_L,    _______, _______,       _______, QK_BOOT,             _______,      _______,        _______,      _______, _______,
-        _______, _______, OSM(MOD_LCTL), OSM(MOD_LALT), _______,       _______,      _______,        _______,      _______, _______,
-        _______, _______, KC_LCTL,       KC_LALT, _______,             _______,      TO(_NUMBERS),   TO(_FN_KEYS), _______, _______,
-                                         _______, _______,             TO(_COLEMAK), _______
+        KC_L,    _______, _______, _______,       QK_BOOT,             _______,      _______,        _______,      _______, _______,
+        CW_TOGG, _______, _______, OSM(MOD_LCTL), OSM(MOD_LALT),       _______,      _______,        _______,      _______, _______,
+        _______, _______, _______, KC_LCTL,       KC_LALT,             _______,      TO(_NUMBERS),   TO(_FN_KEYS), _______, _______,
+                                   _______,       _______,             TO(_COLEMAK), _______
     ),
 
 
