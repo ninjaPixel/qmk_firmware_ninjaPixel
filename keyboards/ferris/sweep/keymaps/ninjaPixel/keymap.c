@@ -39,10 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Layer picker layer and sticky modifiers
     [_LAYER_PICKER] = LAYOUT(
-        KC_L,    _______, _______, _______, QK_BOOT,             _______,      _______,        _______,      _______, _______,
-        _______, _______, _______, _______, _______,             _______,      _______,        _______,      _______, _______,
-        _______, _______, _______, _______, _______,             _______,      TO(_NUMBERS),   TO(_FN_KEYS), _______, _______,
-                                   _______, _______,             TO(_COLEMAK), _______
+        KC_L,    _______, _______,       _______, QK_BOOT,             _______,      _______,        _______,      _______, _______,
+        _______, _______, OSM(MOD_LCTL), OSM(MOD_LALT), _______,       _______,      _______,        _______,      _______, _______,
+        _______, _______, KC_LCTL,       KC_LALT, _______,             _______,      TO(_NUMBERS),   TO(_FN_KEYS), _______, _______,
+                                         _______, _______,             TO(_COLEMAK), _______
     ),
 
 
@@ -62,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Quick access layer
     [_SECONDARY] = LAYOUT(
-        KC_ESC,  _______, _______, _______, _______,             _______,       _______, _______, _______, LALT(KC_BSPC),
-        KC_TAB,  _______, _______, _______, _______,             KC_MINUS,      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,
-        _______, _______, _______, _______, _______,             _______,       _______, _______, _______, _______,
+        KC_ESC,  _______, _______, _______, _______,             _______,       _______,       _______, _______, LALT(KC_BSPC),
+        KC_TAB,  _______, _______, _______, _______,             KC_MINUS,      KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,
+        _______, _______, _______, _______, _______,             _______,       LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),
                                    _______, KC_BSPC,             TO(_COLEMAK),  _______
     )
     // Template
