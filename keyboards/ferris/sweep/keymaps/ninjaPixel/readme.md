@@ -1,8 +1,6 @@
 # Ferris Sweep — ninjaPixel keymap
 
-A minimal, single-layer **Colemak** keymap for the Ferris Sweep. Its only job
-right now is to prove that we can build and flash firmware for the **RP2040**
-version of this board. A fuller multi-layer layout will follow.
+A **Colemak** keymap for the Ferris Sweep.
 
 ## Hardware / converter
 
@@ -33,37 +31,28 @@ equivalent RP2040 GPIOs, and changes the build output from `.hex` to `.uf2`.
 ```bash
 qmk compile -kb ferris/sweep -km ninjaPixel
 ```
+## Flash
 
-## Flash (RP2040)
+```bash
+qmk flash -kb ferris/sweep -km ninjaPixel
+```
+
+When the CLI says it is looking for the device then put hit the `QK_BOOT` key (it's on the `LAYER_PICKER` layer).
+
+
+### notes
 
 Unlike the AVR board, the RP2040 is flashed by copying a `.uf2` file onto a
-mass-storage drive — `qmk flash` automates the copy:
+mass-storage drive — `qmk flash` automates the copy.
 
-1. Put a half into bootloader mode. Any of:
-   - double-tap the reset button, or
-   - hold the top-left key (top-right on the right half) while plugging it in
-     (bootmagic), or
-   - press the `BOOT`/`RESET` button on the controller, or
-   - press a key mapped to `QK_BOOT` (temporarily on the inner thumb keys in
-     this keymap).
+If I'm unable to use the `QMK_BOOT` key for whatever reason, then I should be able to put each half into boot mode by following this:
 
-   The board mounts as an `RPI-RP2` drive in Finder.
-2. Run:
-   ```bash
-   qmk flash -kb ferris/sweep -km ninjaPixel
-   ```
+> You'll need to bridge the boot to the pin to the right of it (the 3rd soldered one from the top) while plugging it in.
+From there a file explorer window should open for you to drag and drop your firmware into.
+> Source: Mechboards help email - 5 June 2026
+
+Then run the flash command. 
 
 If `qmk flash` doesn't auto-detect the drive, drag the generated
 `ferris_sweep_ninjaPixel.uf2` onto the `RPI-RP2` volume manually.
 
-### Both halves flash in one go
-
-In practice a single flash run programmed **both** halves at once — there's no
-need to flash each side separately the way the Sofle does. The Sweep defines no
-handedness method (no `EE_HANDS`, no `SPLIT_HAND_PIN`), so it uses QMK's default
-runtime handedness: both halves run the **same** firmware image and detect which
-side has the USB cable at boot. The one `.uf2` is therefore valid for either
-half — there is no separate left/right build to manage.
-
-(If a half ever behaves oddly after an update, just flash that half on its own
-with the exact same command.)
