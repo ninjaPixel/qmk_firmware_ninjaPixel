@@ -28,11 +28,12 @@ enum layers {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base layer — standard Colemak (not Colemak-DH), MacOS-oriented.
+    // note: the style `key1_T(key2)` is a mod tap. Tap for key2 and hold for key1
     [_COLEMAK] = LAYOUT(
-        KC_Q,    KC_W,    KC_F,    KC_P,                 KC_B,            KC_J,               KC_L,                   KC_U,    KC_Y,    KC_BSLS,
-        KC_A,    KC_R,    KC_S,    KC_T,                 KC_G,            KC_M,               KC_N,                   KC_E,    KC_I,    KC_O,
-        KC_Z,    KC_X,    KC_C,    KC_D,                 KC_V,            KC_K,               KC_H,                   KC_COMM, KC_DOT,  KC_SLSH,
-                                   MT(MOD_RSFT, KC_ENT), KC_LGUI,         OSL(_LAYER_PICKER), LT(_SECONDARY, KC_SPC)
+        KC_Q,         KC_W,        KC_F,         KC_P,         KC_B,              KC_J,               KC_L,                   KC_U,    KC_Y,    KC_BSLS,
+        HYPR_T(KC_A), MEH_T(KC_R), LCTL_T(KC_S), LGUI_T(KC_T), LALT_T(KC_G),      LALT_T(KC_M),       KC_N,                   KC_E,    KC_I,    KC_O,
+        KC_Z,         KC_X,        KC_C,         KC_D,         KC_V,              KC_K,               KC_H,                   KC_COMM, KC_DOT,  KC_SLSH,
+                                                 MT(MOD_RSFT, KC_ENT), KC_LGUI,   OSL(_LAYER_PICKER), LT(_SECONDARY, KC_SPC)
     ),
 
 
@@ -40,8 +41,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Layer picker layer and sticky modifiers
     [_LAYER_PICKER] = LAYOUT(
         KC_L,    _______, _______, _______,       QK_BOOT,             _______,      _______,        _______,      _______, _______,
-        CW_TOGG, _______, _______, OSM(MOD_LCTL), OSM(MOD_LALT),       _______,      _______,        _______,      _______, _______,
-        _______, _______, _______, KC_LCTL,       KC_LALT,             _______,      TO(_NUMBERS),   TO(_FN_KEYS), _______, _______,
+        CW_TOGG, _______, _______, OSM(MOD_LCTL), OSM(MOD_LALT),       _______,      TO(_NUMBERS),   TO(_FN_KEYS), _______, _______,
+        _______, _______, _______, KC_LCTL,       KC_LALT,             _______,      _______,        _______,      _______, _______,
                                    _______,       _______,             TO(_COLEMAK), _______
     ),
 
