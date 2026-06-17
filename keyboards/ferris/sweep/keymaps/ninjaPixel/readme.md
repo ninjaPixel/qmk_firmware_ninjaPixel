@@ -39,6 +39,51 @@ qmk flash -kb ferris/sweep -km ninjaPixel
 
 When the CLI says it is looking for the device then put hit the `QK_BOOT` key (it's on the `LAYER_PICKER` layer).
 
+## Generate keymap SVG
+
+This uses [`keymap-drawer`](https://github.com/caksoylar/keymap-drawer), the same
+tool the Sofle keymap uses (see `users/ninjaPixel/readme.md` for the one-time
+install of `pipx` + `keymap-drawer`). Run from the repository root:
+
+```bash
+qmk c2json -kb ferris/sweep -km ninjaPixel --no-cpp \
+    keyboards/ferris/sweep/keymaps/ninjaPixel/keymap.c \
+  | keymap parse -c 10 -q - \
+      -l Colemak "Layer Picker" Numbers "Fn Keys" Secondary \
+  | sed 's/layout_name: LAYOUT}/layout_name: LAYOUT_split_3x5_2}/' \
+  > keymap_vis.yaml \
+  && keymap draw keymap_vis.yaml \
+       > keyboards/ferris/sweep/keymaps/ninjaPixel/keymap.svg
+```
+
+The result is [`keymap.svg`](keymap.svg) in this directory.
+
+### How this differs from the Sofle command
+
+The Sofle's `keymap.c` is just `#include "ninjaPixel_keymap.h"`, so its command
+passes that userspace header as the file to parse. Here the `LAYOUT()` calls live
+directly in this keymap's own `keymap.c`, so we point `c2json` at `keymap.c`
+instead. Three Sweep-specific details:
+
+- **`--no-cpp` + explicit `keymap.c` path.** Letting `c2json` run the C
+  preprocessor fails here, so we parse the file as raw text with `--no-cpp` (same
+  as the Sofle). With `--no-cpp` you *must* pass the file path positionally —
+  `-km ninjaPixel` alone is not enough for it to locate the file.
+- **The `sed` layout rename.** `keymap.c` calls the layout `LAYOUT`, but the
+  alias `keymap-drawer` knows for `ferris/sweep` is its canonical name,
+  `LAYOUT_split_3x5_2`. The `sed` rewrites `layout_name:` so `keymap draw` can
+  find the matching 3x5+2 split physical layout. Without it, `draw` errors with
+  *"Could not find layout 'LAYOUT'"*.
+- **`-c 10`** matches the 10 non-thumb columns (5 per half), and `-l ...` renames
+  the five layers (otherwise they render as `L0`–`L4`).
+
+### Caveat: unexpanded macros
+
+As with the Sofle, `--no-cpp` means custom/compound keycodes are not expanded, so
+keys like `OSL(_LAYER_PICKER)`, `LT(_SECONDARY, KC_SPC)` and `TO(_NUMBERS)` show
+their raw macro text on the layer/thumb keys. This is cosmetic only. To prettify
+them, hand-edit the labels in `keymap_vis.yaml` before the `keymap draw` step.
+
 
 ### notes
 
