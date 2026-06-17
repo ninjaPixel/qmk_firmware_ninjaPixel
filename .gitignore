@@ -129,3 +129,6 @@ compile_commands.json
 via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
+
+# keymap temp files
+keymap_vis.yaml
