@@ -63,10 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Quick access layer
     [_SECONDARY] = LAYOUT(
-        KC_ESC,         KC_LBRC, KC_LPRN,   KC_LCBR,      KC_GRV,              _______,       KC_RCBR,       KC_RPRN, KC_RBRC, LALT(KC_BSPC),
-        LALT(KC_DEL),   KC_DEL,  KC_QUOTE,  KC_SEMICOLON, KC_LALT,             KC_MINUS,      KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,
-        KC_TAB,         _______, _______,   _______,      _______,             KC_RGUI,       LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),
-                                            _______,      LALT(KC_TAB),        TO(_COLEMAK),  _______
+        KC_ESC,         KC_LBRC,      KC_LPRN,      KC_LCBR,       KC_GRV,              _______,       KC_RCBR,       KC_RPRN, KC_RBRC, LALT(KC_BSPC),
+        LALT(KC_DEL),   KC_DEL,       KC_QUOTE,     KC_SEMICOLON,  KC_LALT,             KC_MINUS,      KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,
+        KC_TAB,         LSG(KC_LBRC), LSG(KC_RBRC), OSL(_NUMBERS), _______,             KC_RGUI,       LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),
+                                                    _______,       LALT(KC_TAB),        TO(_COLEMAK),  _______
     )
     // Template
     // [_FOO] = LAYOUT(

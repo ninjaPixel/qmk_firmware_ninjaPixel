@@ -127,7 +127,7 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 // ──────────────────────────────────────────────────────────────
-// Keymaps — shared across all boards
+// Keymaps — shared across Soffle boards
 // ──────────────────────────────────────────────────────────────
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mac Base (Layer 0) — Colemak layout
