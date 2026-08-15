@@ -25,6 +25,54 @@ enum layers {
     _SECONDARY
 };
 
+// ──────────────────────────────────────────────────────────────
+// Tap Dance
+// ──────────────────────────────────────────────────────────────
+// Indices into tap_dance_actions[]. Referenced from the keymap as TD(...).
+enum tap_dances {
+    TD_SCREENSHOT,
+};
+
+// ── Screenshot tap dance (Mac-only) ──
+// This is a simplified port of the OS-aware screenshot tap dance from the
+// Sofle (users/ninjaPixel/ninjaPixel_keymap.h). The Ferris Sweep is only
+// ever used with a Mac, so the OS-detection branch and the Windows
+// shortcuts have been dropped entirely:
+//
+//   1 tap  → Cmd+Shift+4  (selection screenshot — drag a region)
+//   2 taps → Cmd+Shift+3  (full screen screenshot)
+//   3 taps → Cmd+Shift+5  (screenshot/record toolbar)
+//
+// The key lives on _FN_KEYS, which is reached via TO(_FN_KEYS) — a
+// persistent layer toggle. (It deliberately does NOT live on the one-shot
+// _LAYER_PICKER layer: QMK clears a one-shot layer on the first keypress,
+// which breaks multi-tap dances.)
+
+// Called once when QMK resolves the dance (tapping term expired, or another
+// key interrupted it). Sends the Mac screenshot shortcut for the tap count.
+void td_screenshot_finished(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            // Mac selection screenshot — crosshair to drag a region.
+            tap_code16(LGUI(LSFT(KC_4)));
+            break;
+        case 2:
+            // Mac full screen screenshot — captures the entire display.
+            tap_code16(LGUI(LSFT(KC_3)));
+            break;
+        case 3:
+            // Mac screenshot toolbar — the floating screenshot/record UI.
+            tap_code16(LGUI(LSFT(KC_5)));
+            break;
+    }
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    // Screenshot: fires on dance completion only, so the simple FN variant
+    // (on_dance_finished callback, nothing on each tap / reset) is enough.
+    [TD_SCREENSHOT] = ACTION_TAP_DANCE_FN(td_screenshot_finished),
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base layer — standard Colemak (not Colemak-DH), MacOS-oriented.
@@ -32,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK] = LAYOUT(
         KC_Q,         KC_W,        KC_F,         KC_P,                 KC_B,                    KC_J,               KC_L,                   KC_U,         KC_Y,        KC_BSLS,
         HYPR_T(KC_A), MEH_T(KC_R), LCTL_T(KC_S), LGUI_T(KC_T),         LALT_T(KC_G),            RALT_T(KC_M),       RGUI_T(KC_N),           RCTL_T(KC_E), MEH_T(KC_I), HYPR_T(KC_O),
-        KC_Z,         KC_X,        KC_C,         KC_D,                 KC_V,                    KC_K,               KC_H,                   KC_COMM,      KC_DOT,      KC_SLSH,
-                                                 MT(MOD_RSFT, KC_ENT), KC_BSPC,                 OSL(_LAYER_PICKER), LT(_SECONDARY, KC_SPC)
+        KC_Z,         KC_X,        KC_C,         KC_D,                 KC_V,                    KC_K,               KC_H,                   KC_COMM,      KC_DOT,      MT(MOD_RSFT, KC_SLSH),
+                                                 MT(MOD_RSFT, KC_ENT), LT(_NUMBERS, KC_BSPC),   OSL(_LAYER_PICKER), LT(_SECONDARY, KC_SPC)
     ),
 
 
@@ -54,19 +102,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______,            TO(_COLEMAK), LT(_SECONDARY, KC_SPC)
     ),
 
+    // F-keys layer. The 'z' position holds the Mac screenshot tap dance
+    // (1 tap = selection, 2 taps = full screen, 3 taps = screenshot toolbar).
     [_FN_KEYS] = LAYOUT(
-        KC_F,    _______, _______, _______, XXXXXXX,            _______,      KC_F7,     KC_F8, KC_F9, KC_F12,
-        _______, _______, _______, _______, _______,            _______,      KC_F4,     KC_F5, KC_F6, KC_F11,
-        _______, _______, _______, _______, _______,            _______,      KC_F1,     KC_F2, KC_F3, KC_F10,
-                                   _______, _______,            TO(_COLEMAK), _______
+        KC_F,              _______, _______, _______, XXXXXXX,            _______,      KC_F7,     KC_F8, KC_F9, KC_F12,
+        _______,           _______, _______, _______, _______,            _______,      KC_F4,     KC_F5, KC_F6, KC_F11,
+        TD(TD_SCREENSHOT), _______, _______, _______, _______,            _______,      KC_F1,     KC_F2, KC_F3, KC_F10,
+                                             _______, _______,            TO(_COLEMAK), _______
     ),
 
     // Quick access layer
     [_SECONDARY] = LAYOUT(
-        KC_ESC,         KC_LBRC, KC_LPRN,   KC_LCBR,      KC_GRV,              _______,       KC_RCBR,       KC_RPRN, KC_RBRC, LALT(KC_BSPC),
-        LALT(KC_DEL),   KC_DEL,  KC_QUOTE,  KC_SEMICOLON, KC_LALT,             KC_MINUS,      KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,
-        KC_TAB,         _______, _______,   _______,      _______,             KC_RGUI,       LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),
-                                            _______,      LALT(KC_TAB),        TO(_COLEMAK),  _______
+        KC_ESC,         KC_LBRC,      KC_LPRN,      KC_LCBR,       KC_GRV,              _______,       KC_RCBR,       KC_RPRN, KC_RBRC, LALT(KC_BSPC),
+        LALT(KC_DEL),   KC_DEL,       KC_QUOTE,     KC_SEMICOLON,  KC_LALT,             KC_MINUS,      KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT,
+        KC_TAB,         LSG(KC_LBRC), LSG(KC_RBRC), OSL(_NUMBERS), _______,             KC_RGUI,       LGUI(KC_LEFT), KC_PGDN, KC_PGUP, LGUI(KC_RIGHT),
+                                                    _______,       LALT(KC_TAB),        TO(_COLEMAK),  _______
     )
     // Template
     // [_FOO] = LAYOUT(
